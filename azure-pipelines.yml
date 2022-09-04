@@ -1,6 +1,10 @@
 trigger:
 - main
 
+variables:
+  reactSource: '/simple-react-app'
+  reactBuild: '$(reactSource)/build'
+
 pool:
   vmImage: ubuntu-latest
 
@@ -12,14 +16,22 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    cd simple-react-app
+    pushd $(reactSource)
     npm install
     npm run build
+    popd
   displayName: 'npm install and build'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(reactBuild)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-
