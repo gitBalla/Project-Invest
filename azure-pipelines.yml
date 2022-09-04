@@ -12,9 +12,9 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
+    cd simple-react-app
     npm install
     npm run build
-  workingDirectory: 'simple-react-app'
   displayName: 'npm install and build'
 
 - task: PublishBuildArtifacts@1
@@ -22,3 +22,4 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+
