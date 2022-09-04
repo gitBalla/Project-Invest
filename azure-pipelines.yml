@@ -2,7 +2,7 @@ trigger:
 - main
 
 variables:
-  reactSource: '/simple-react-app'
+  reactSource: 'simple-react-app'
   reactBuild: '$(reactSource)/build'
 
 pool:
