@@ -20,7 +20,7 @@ class App extends React.Component {
 				<Navbar color="primary">
 					<div className="container" id="brand">
 						<NavbarBrand>Project-Invest</NavbarBrand>
-            <button onClick={callApi}>Call API</button>
+            	<button onClick={callApi}>Call API</button>
 					</div>
 				</Navbar>
 				<h1>Project Dashboard</h1>
