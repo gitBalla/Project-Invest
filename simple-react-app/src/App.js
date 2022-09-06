@@ -28,7 +28,7 @@ class App extends React.Component {
   }
 
 callAPI() {
-    fetch("http://localhost:1337/projects")
+    fetch("https://devfund-api.azurewebsites.net/projects")
         .then(res => res.json())
         .then(res => this.setState({ projects: res }));
 }
