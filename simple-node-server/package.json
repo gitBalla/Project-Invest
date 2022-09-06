@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "serve": "npx nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +26,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.5",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "nodemon": "^2.0.19",
     "prettier": "^2.7.1"
   }
 }
