@@ -27,19 +27,19 @@ class App extends React.Component {
     );
   }
 
-callAPI() {
-    fetch("https://devfund-api.azurewebsites.net/projects")
-        .then(res => res.json())
-        .then(res => this.setState({ projects: res }));
-}
+  callAPI() {
+    fetch('https://devfund-api.azurewebsites.net/api/projects')
+      .then((res) => res.json())
+      .then((res) => this.setState({ projects: res }));
+  }
 
-componentWillMount() {
+  componentDidMount() {
     this.callAPI();
-}
+  }
 }
 
 function callApiTest() {
-  fetch('https://devfund-api.azurewebsites.net/details', { method: 'GET' })
+  fetch('https://devfund-api.azurewebsites.net/api/details', { method: 'GET' })
     .then((data) => data.json())
     .then((json) => alert(JSON.stringify(json)));
 }
