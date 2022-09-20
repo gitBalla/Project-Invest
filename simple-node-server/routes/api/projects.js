@@ -1,5 +1,4 @@
 const express = require('express');
-// const projects = require('../../data/projects.json');
 const Project = require('../../models/project');
 
 const router = express.Router();
