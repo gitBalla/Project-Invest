@@ -1,38 +1,55 @@
 import React from 'react';
-import { Media } from 'reactstrap';
-import './dashboard.css';
+import './dashboardComponents/dashboard.css';
+import { Divider } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
+import DashboardList from './dashboardComponents/dashboardList';
+import useFetch from "react-fetch-hook";
 
-class Dashboard extends React.Component {
-	
-	render(){
-		
-		const dashboard = this.props.projects.map((project) => {
-			return(
-				<div key={project.id} id="unit" className="col-6 mt-4">
-					<div class='d-flex align-items-center'>
-						<div class="flex-shrink-0">
-							<img src={project.image} alt={project.name} />
-						</div>
-						<div class="flex-grow-1 ms-3">
-							<h3><strong>{project.name}</strong></h3>
-							<h5><strong>State - </strong>{project.category}</h5>
-							<h5><strong>Info - </strong>{project.description}</h5>
-						</div>
-					</div>  
-				</div>
-			);
-		});
-		
-		return(
-			<div className="container">
-				<div className="row">
-					<Media list>
-						{dashboard}
-					</Media>
-				</div>
-			</div>
-		);
+
+function Dashboard() {
+	const projects = useFetch("https://devfund-api.azurewebsites.net/api/projects");
+
+	/** Displays status of get call*/
+	if (projects.error) {
+	  return (<p>Error: {projects.error.name}</p>);
 	}
+	if (projects.isLoading) {
+	  return (<p>Loading...</p>)
+	}
+	return (
+		<div>
+			<h3>Project Dashboards</h3>
+			<br />
+			<Grid container spacing={2} backgroundColor="aliceBlue">
+				<Grid item xs={1}></Grid>
+
+				<Grid item xs={3}>
+				<h4>Recent</h4>
+				<DashboardList projects={projects.data}/>
+				</Grid>
+
+				<Grid item xs={.25}></Grid>
+				<Divider orientation="vertical" flexItem sx={{ borderWidth: 5 }} />
+				<Grid item xs={.25}></Grid>
+
+				<Grid item xs={3}>
+				<h4>Popularity</h4>
+				<DashboardList projects={projects.data}/>
+				</Grid>
+
+				<Grid item xs={.25}></Grid>
+				<Divider orientation="vertical" flexItem sx={{ borderWidth: 5 }} />
+				<Grid item xs={.25}></Grid>
+
+				<Grid item xs={3}>
+				<h4>Owner</h4>
+				<DashboardList projects={projects.data}/>
+				</Grid>
+
+				<Grid item xs={1}></Grid>
+			</Grid>
+		</div>
+	);
 }
 
 export default Dashboard;

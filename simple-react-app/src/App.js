@@ -1,47 +1,17 @@
 import React from 'react';
 import './App.css';
-import { Navbar, NavbarBrand } from 'reactstrap';
-import Dashboard from './components/dashboard';
+import Dashboard from './components/dashboard.js';
+import AppBar from './components/dashboardComponents/appBar.js';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      projects: [],
-    };
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <Navbar color="primary">
-          <div className="container" id="brand">
-            <NavbarBrand>Project-Invest</NavbarBrand>
-            <button onClick={callApiTest}>Call API</button>
-          </div>
-        </Navbar>
-        <h1>Project Dashboard</h1>
-        <Dashboard projects={this.state.projects} />
-      </div>
-    );
-  }
-
-  callAPI() {
-    fetch('https://devfund-api.azurewebsites.net/api/projects')
-      .then((res) => res.json())
-      .then((res) => this.setState({ projects: res }));
-  }
-
-  componentDidMount() {
-    this.callAPI();
-  }
+function App() {
+  return (
+    <div className="App" >
+    <AppBar /><br />
+    <Dashboard />
+  </div>
+  )
 }
 
-function callApiTest() {
-  fetch('https://devfund-api.azurewebsites.net/api/details', { method: 'GET' })
-    .then((data) => data.json())
-    .then((json) => alert(JSON.stringify(json)));
-}
 
 export default App;
