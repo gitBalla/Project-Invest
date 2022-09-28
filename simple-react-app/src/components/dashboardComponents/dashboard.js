@@ -1,8 +1,8 @@
 import React from 'react';
-import './dashboardComponents/dashboard.css';
+import './dashboard.css';
 import { Divider } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import DashboardList from './dashboardComponents/dashboardList';
+import DashboardList from './dashboardList';
 import useFetch from "react-fetch-hook";
 
 

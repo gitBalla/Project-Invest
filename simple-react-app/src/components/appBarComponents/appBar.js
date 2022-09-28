@@ -3,6 +3,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Box, Toolbar, Typography, IconButton
 } from "@mui/material";
 import ProfileButton from './profileButton.js';
+import { Outlet } from "react-router-dom";
 
 
 const ButtonAppBar = () => {
@@ -25,6 +26,7 @@ const ButtonAppBar = () => {
                     <ProfileButton />
                 </Toolbar>
             </AppBar>
+            <Outlet />
         </Box>
     );
 }

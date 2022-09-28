@@ -2,6 +2,7 @@ import React from 'react';
 import { IconButton, Menu, MenuItem
 } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import { Link } from "react-router-dom";
 
 
 const ProfileButton = () => {
@@ -42,10 +43,11 @@ const ProfileButton = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
               >
-                <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-                <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-                <MenuItem onClick={handleMenuClose}>My projects</MenuItem>
-                <MenuItem onClick={handleMenuClose}>My applications</MenuItem>
+                <MenuItem onClick={handleMenuClose}><Link to="/">Dashboard</Link></MenuItem>
+                <MenuItem onClick={handleMenuClose}><Link to="/profile">Profile</Link></MenuItem>
+                <MenuItem onClick={handleMenuClose}><Link to="/application">Applications</Link></MenuItem>
+                <MenuItem onClick={handleMenuClose}>My Projects</MenuItem>
+                <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
               </Menu>
             </div>
     );
