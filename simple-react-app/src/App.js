@@ -15,6 +15,7 @@ import ApplicationForm from './components/pages/applicationForm.js';
 function App() {
   return (
     <div className="App" >
+      {/*Browser Router implementation for all links/routes through the app*/}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<AppBar />}>
