@@ -1,8 +1,8 @@
 import React from 'react';
-import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar, Box, Toolbar, Typography, IconButton
+import { AppBar, Box, Toolbar, Typography
 } from "@mui/material";
 import ProfileButton from './profileButton.js';
+import AddButton from './addButton.js';
 import { Outlet } from "react-router-dom";
 
 
@@ -11,21 +11,14 @@ const ButtonAppBar = () => {
         <Box sx={{ flexGrow: 1 }} >
             <AppBar position="static" >
                 <Toolbar >
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
+                    <AddButton />
                     <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
                         Project-Invest
                     </Typography>
                     <ProfileButton />
                 </Toolbar>
             </AppBar>
+            <br />
             <Outlet />
         </Box>
     );

@@ -25,7 +25,7 @@ function DashboardList(props) {
 					flexGrow: 1, 
 					backgroundColor: 'primary.main',
 					'&:hover': {
-						backgroundColor: 'primary.main',
+						backgroundColor: 'primary.light',
 					}
 					}}>
 					<ListItem>
@@ -35,7 +35,7 @@ function DashboardList(props) {
 						<ListItemText primary={project.name} secondary={project.category} />
 					</ListItem>
 					<ListItem>
-						<Accordion>
+						<Accordion sx={{ width: '100%'}}>
 							<AccordionSummary expandIcon={<ExpandMoreIcon />} >
 								<Typography variant="subtitle2">Description</Typography>
 							</AccordionSummary>

@@ -1,10 +1,15 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Outlet} from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import './App.css';
 import Dashboard from './components/dashboardComponents/dashboard.js';
-import Profile from './components/profile.js';
-import Application from './components/application';
 import AppBar from './components/appBarComponents/appBar.js';
+import Profile from './components/pages/profile.js';
+import MyApplications from './components/pages/myApplications';
+import MyProjects from './components/pages/myProjects.js';
+import Settings from './components/pages/settings.js';
+import ProjectForm from './components/pages/projectForm.js';
+import ApplicationForm from './components/pages/applicationForm.js';
+
 
 
 function App() {
@@ -15,7 +20,11 @@ function App() {
           <Route path="/" element={<AppBar />}>
             <Route index element={<Dashboard />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="application" element={<Application />} />
+            <Route path="myApplications" element={<MyApplications />} />
+            <Route path="myProjects" element={<MyProjects />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="projectForm" element={<ProjectForm />} />
+            <Route path="applicationForm" element={<ApplicationForm />} />
             <Route path="*" element={<h1>404</h1>} />
           </Route>
         </Routes>
