@@ -1,47 +1,37 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import './App.css';
-import { Navbar, NavbarBrand } from 'reactstrap';
-import Dashboard from './components/dashboard';
+import Dashboard from './components/dashboardComponents/dashboard.js';
+import AppBar from './components/appBarComponents/appBar.js';
+import Profile from './components/pages/profile.js';
+import MyApplications from './components/pages/myApplications';
+import MyProjects from './components/pages/myProjects.js';
+import Settings from './components/pages/settings.js';
+import ProjectForm from './components/pages/projectForm.js';
+import ApplicationForm from './components/pages/applicationForm.js';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      projects: [],
-    };
-  }
 
-  render() {
-    return (
-      <div className="App">
-        <Navbar color="primary">
-          <div className="container" id="brand">
-            <NavbarBrand>Project-Invest</NavbarBrand>
-            <button onClick={callApiTest}>Call API</button>
-          </div>
-        </Navbar>
-        <h1>Project Dashboard</h1>
-        <Dashboard projects={this.state.projects} />
-      </div>
-    );
-  }
-
-  callAPI() {
-    fetch('https://devfund-api.azurewebsites.net/api/projects')
-      .then((res) => res.json())
-      .then((res) => this.setState({ projects: res }));
-  }
-
-  componentDidMount() {
-    this.callAPI();
-  }
+function App() {
+  return (
+    <div className="App" >
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<AppBar />}>
+            <Route index element={<Dashboard />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="myApplications" element={<MyApplications />} />
+            <Route path="myProjects" element={<MyProjects />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="projectForm" element={<ProjectForm />} />
+            <Route path="applicationForm" element={<ApplicationForm />} />
+            <Route path="*" element={<h1>404</h1>} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
+  )
 }
 
-function callApiTest() {
-  fetch('https://devfund-api.azurewebsites.net/api/details', { method: 'GET' })
-    .then((data) => data.json())
-    .then((json) => alert(JSON.stringify(json)));
-}
 
 export default App;
