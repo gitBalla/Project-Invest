@@ -7,27 +7,31 @@ const projects = require('./routes/api/projects');
 const users = require('./routes/api/users');
 
 // Connect to MongoDB database
-mongoose.connect(config.dbUrl, { useNewUrlParser: true }).then(() => {
-  const app = express();
-  const port = process.env.PORT || 1337;
+try {
+  mongoose.connect(config.dbUrl, { useNewUrlParser: true }).then(() => {
+    const app = express();
+    const port = process.env.PORT || 1337;
 
-  app.use(express.json());
-  app.use(cors());
+    app.use(express.json());
+    app.use(cors());
 
-  // Configuring body parser middleware
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json());
+    // Configuring body parser middleware
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
 
-  // Projects route
-  app.use('/api/projects', projects);
-  // Users route
-  app.use('/api/users', users);
+    // Projects route
+    app.use('/api/projects', projects);
+    // Users route
+    app.use('/api/users', users);
 
-  app.get('/details', (req, res) => {
-    res.send({ data: 'Hello World, from express' });
+    app.get('/details', (req, res) => {
+      res.send({ data: 'Hello World, from express' });
+    });
+
+    app.listen(port, () =>
+      console.log(`Project-invest listening on port ${port}!`)
+    );
   });
-
-  app.listen(port, () =>
-    console.log(`Project-invest listening on port ${port}!`)
-  );
-});
+} catch (e) {
+  console.log('Error when connecting to MongoDB Atlas');
+}
