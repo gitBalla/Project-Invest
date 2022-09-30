@@ -10,6 +10,7 @@ import Settings from './components/pages/settings.js';
 import ProjectForm from './components/pages/projectForm.js';
 import ApplicationForm from './components/pages/applicationForm.js';
 import Signup from './components/pages/signup.js';
+import Login from './components/pages/login.js';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="projectForm" element={<ProjectForm />} />
             <Route path="applicationForm" element={<ApplicationForm />} />
             <Route path="signup" element={<Signup />} />
+            <Route path="login" element={<Login />} />
             <Route path="*" element={<h1>404</h1>} />
           </Route>
         </Routes>

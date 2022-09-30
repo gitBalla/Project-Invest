@@ -1,5 +1,7 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const User = require('../../models/user');
+const config = require('../../config/dev');
 
 const router = express.Router();
 
@@ -42,5 +44,43 @@ router.post('/', async (req, res) => {
     res.send({ error: e });
   }
 });
+
+// Login: generate JWT token, return to user
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  const user = await User.findOne({ username });
+  if (!user) {
+    return res.send({ error: 'User not found' });
+  }
+  if (password === user.password) {
+    const token = jwt.sign({ username, password }, config.secrets.jwt, {
+      expiresIn: '7d',
+    });
+
+    if (res.status(201)) {
+      return res.send({ status: 'ok', data: token });
+    }
+    return res.send({ error: 'error' });
+  }
+  return res.send({ status: 'error', error: 'Incorrect Password' });
+});
+
+// router.post('/userDetails', async (req, res) => {
+//   const { token } = req.body;
+//   try {
+//     const user = jwt.verify(token, config.secrets.jwt);
+//     const { username } = user.username;
+//     User.findOne({ username })
+//       .then((data) => {
+//         res.send({ status: 'ok', data });
+//       })
+//       .catch((e) => {
+//         res.send({ status: 'error', data: e });
+//       });
+//   } catch (e) {
+//     res.send({ error: e });
+//   }
+// });
 
 module.exports = router;
