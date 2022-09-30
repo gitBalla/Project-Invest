@@ -28,8 +28,12 @@ router.post('/', async (req, res) => {
     category: req.body.category,
     description: req.body.description,
   });
-  await project.save();
-  res.send(project);
+  try {
+    await project.save();
+    res.send(project);
+  } catch (e) {
+    res.send({ error: 'Failure when making POST to user' });
+  }
 });
 
 module.exports = router;
