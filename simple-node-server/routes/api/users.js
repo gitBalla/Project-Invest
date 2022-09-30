@@ -23,17 +23,18 @@ router.get('/:id', async (req, res) => {
 // Post user
 router.post('/', async (req, res) => {
   const user = new User({
-    firstName: req.body.name,
-    lastName: req.body.image,
-    username: req.body.category,
-    password: req.body.description,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    username: req.body.username,
+    password: req.body.password,
     developer: req.body.developer,
     investor: req.body.investor,
   });
   try {
-    const tempUser = User.findOne({ username: req.body.username });
-    if (tempUser) {
+    const userExist = await User.find({ username: req.body.username });
+    if (userExist.length > 0) {
       res.send({ error: 'User exists' });
+      return;
     }
     await user.save();
     res.send(user);
