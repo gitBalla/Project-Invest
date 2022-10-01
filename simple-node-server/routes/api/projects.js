@@ -27,6 +27,7 @@ router.post('/', async (req, res) => {
     image: req.body.image,
     category: req.body.category,
     description: req.body.description,
+    dateCreated: req.body.dateCreated,
   });
   await project.save();
   res.send(project);
