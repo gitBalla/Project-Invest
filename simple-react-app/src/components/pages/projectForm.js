@@ -7,7 +7,7 @@ const ProjectForm = () => {
   const [projectName, setProjectName] = React.useState("");
   const [projectDescription, setProjectDescription] = React.useState("");
   const [projectCategory, setProjectCategory] = React.useState("");
-  
+
   const navigate = useNavigate();
 
   console.log(projectName, projectDescription, projectCategory, Moment().format('DD-MMM-YYYY'));
@@ -16,7 +16,7 @@ const ProjectForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await fetch('https://devfund-api.azurewebsites.net/api/projects', {
+    await fetch('http://localhost:1337/api/projects', { // https://devfund-api.azurewebsites.net/api/projects
       method: 'POST',
       crossDomain: true,
       headers: {
@@ -29,7 +29,6 @@ const ProjectForm = () => {
         image: 'assets/images/logo192.png',
         category: projectCategory,
         description: projectDescription,
-        dateCreated: Moment().format('DD-MMM-YYYY'),
       }),
     })
       .then((res) => res.json())

@@ -22,15 +22,19 @@ router.get('/:id', async (req, res) => {
 
 // Post project
 router.post('/', async (req, res) => {
-  const project = new Project({
-    name: req.body.name,
-    image: req.body.image,
-    category: req.body.category,
-    description: req.body.description,
-    dateCreated: req.body.dateCreated,
-  });
-  await project.save();
-  res.send(project);
+  try {
+    const project = new Project({
+      name: req.body.name,
+      image: req.body.image,
+      category: req.body.category,
+      description: req.body.description,
+      dateCreated: new Date(),
+    });
+    await project.save();
+    res.send(project);
+  } catch (e) {
+    res.send({ error: 'Failure when making POST to user' });
+  }
 });
 
 module.exports = router;

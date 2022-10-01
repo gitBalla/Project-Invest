@@ -7,7 +7,7 @@ const ProjectSchema = new Schema({
   image: { type: String, required: true },
   category: { type: String, required: true },
   description: { type: String, required: true },
-  dateCreated: { type: String, required: true },
+  dateCreated: { type: Date, required: true },
 });
 
 // Export model
