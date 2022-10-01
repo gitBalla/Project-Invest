@@ -13,7 +13,7 @@ const Signup = () => {
 
     console.log(firstName, lastName, username, password, developer, investor);
 
-    await fetch('http://localhost:1337/api/users', {
+    await fetch('https://devfund-api.azurewebsites.net/api/users', {
       method: 'POST',
       crossDomain: true,
       headers: {

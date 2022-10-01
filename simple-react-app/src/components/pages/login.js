@@ -9,7 +9,7 @@ const Login = () => {
 
     console.log(username, password);
 
-    await fetch('http://localhost:1337/api/users/login', {
+    await fetch('https://devfund-api.azurewebsites.net/api/users/login', {
       method: 'POST',
       crossDomain: true,
       headers: {
