@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Dashboard from './components/dashboardComponents/dashboard.js';
 import AppBar from './components/appBarComponents/appBar.js';
@@ -15,7 +15,7 @@ import Login from './components/pages/login.js';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<AppBar />}>
             <Route index element={<Dashboard />} />
@@ -30,7 +30,7 @@ function App() {
             <Route path="*" element={<h1>404</h1>} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
