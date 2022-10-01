@@ -22,13 +22,13 @@ router.get('/:id', async (req, res) => {
 
 // Post project
 router.post('/', async (req, res) => {
-  const project = new Project({
-    name: req.body.name,
-    image: req.body.image,
-    category: req.body.category,
-    description: req.body.description,
-  });
   try {
+    const project = new Project({
+      name: req.body.name,
+      image: req.body.image,
+      category: req.body.category,
+      description: req.body.description,
+    });
     await project.save();
     res.send(project);
   } catch (e) {
