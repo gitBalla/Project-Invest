@@ -32,7 +32,8 @@ function DashboardList(props) {
 						<ListItemAvatar>
 							<Avatar src={project.image}/>
 						</ListItemAvatar>
-						<ListItemText primary={project.name} secondary={project.category} />
+						<ListItemText primary={project.name} secondary={project.category}/>
+						<ListItemText primary={<br></br>} secondary={"Launched: " + new Date(project.dateCreated).toLocaleDateString()}/>
 					</ListItem>
 					<ListItem>
 						<Accordion sx={{ width: '100%'}}>
