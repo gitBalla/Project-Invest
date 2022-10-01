@@ -28,8 +28,10 @@ const Login = () => {
           alert(data.error);
         }
         console.log(data);
-        // Store JWT token in cookie session data
-        document.cookie = `token=${data.data}`;
+        if (data.data) {
+          // Store JWT token in cookie session data
+          document.cookie = `token=${data.data}`;
+        }
       });
   };
 
