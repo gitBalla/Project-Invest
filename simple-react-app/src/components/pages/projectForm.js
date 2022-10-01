@@ -16,7 +16,7 @@ const ProjectForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await fetch('http://localhost:1337/api/projects', { // https://devfund-api.azurewebsites.net/api/projects
+    await fetch('https://devfund-api.azurewebsites.net/api/projects', { //http://localhost:1337/api/projects
       method: 'POST',
       crossDomain: true,
       headers: {
