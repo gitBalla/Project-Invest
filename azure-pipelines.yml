@@ -40,5 +40,5 @@ steps:
   displayName: npm run test
   inputs:
     command: 'custom'
-    workingDir: 'src/simple-react-app'
+    workingDir: '$(reactSource)'
     customCommand: 'run test:ci'
