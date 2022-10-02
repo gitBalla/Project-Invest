@@ -19,7 +19,6 @@ steps:
     pushd $(reactSource)
     npm install
     npm run build
-    npm test
     popd
   displayName: 'npm install and build'
 
