@@ -1,65 +1,56 @@
 import React from 'react';
-import { Media } from 'reactstrap';
 import {
 	ListItem,
 	ListItemAvatar,
 	Avatar,
 	ListItemText,
-	List,
-	Divider,
 	Accordion,
 	AccordionSummary,
 	Typography,
 	AccordionDetails,
 	Card,
+	Box,
   } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
+  
 
 function DashboardList(props) {
-	const dashboardRow = props.projects.map((project) => {
 		return (
-			<List>
-				<Card 
-				 sx={{
-					flexGrow: 1, 
-					backgroundColor: 'primary.main',
-					'&:hover': {
-						backgroundColor: 'primary.light',
-					}
-					}}>
-					<ListItem>
-						<ListItemAvatar>
-							<Avatar src={project.image}/>
-						</ListItemAvatar>
-						<ListItemText primary={project.name} secondary={project.category}/>
-						<ListItemText primary={<br></br>} secondary={"Launched: " + new Date(project.dateCreated).toLocaleDateString()}/>
-					</ListItem>
-					<ListItem>
-						<Accordion sx={{ width: '100%'}}>
-							<AccordionSummary expandIcon={<ExpandMoreIcon />} >
-								<Typography variant="subtitle2">Description</Typography>
-							</AccordionSummary>
-							<AccordionDetails>
-								<Typography variant="subtitle2"> {project.description} </Typography>
-							</AccordionDetails>
-						</Accordion>
-					</ListItem>
-				</Card>
-				<Divider />
-			</List>
+			<Box sx={{ flexGrow: 1 }}>
+      			<Grid container padding={{xs:3}} spacing={{ xs: 1, md: 2 }} columns={{ xs: 4, sm: 8, md: 16 }}>
+					{props.projects.map((project) => (
+						<Grid xs={2} sm={4} md={4} key={project}>
+							<Card sx={{
+									margin: 1,
+									backgroundColor: 'primary.main',
+									'&:hover': {
+										backgroundColor: 'primary.light',
+									}
+									}}>
+								<ListItem>
+								<ListItemAvatar>
+									<Avatar src={project.image}/>
+								</ListItemAvatar>
+								<ListItemText primary={project.name} secondary={project.category}/>
+								</ListItem>
+								<ListItem>
+									<Accordion sx={{ width: '100%'}}>
+										<AccordionSummary expandIcon={<ExpandMoreIcon />} >
+											<Typography variant="subtitle2">Description</Typography>
+										</AccordionSummary>
+										<AccordionDetails>
+											<Typography variant="subtitle2"> {project.description} </Typography> <br />
+											<Typography /> Launched: {new Date(project.dateCreated).toLocaleDateString()}
+										</AccordionDetails>
+									</Accordion>
+								</ListItem>
+							</Card>
+						</Grid>
+					))}
+				</Grid>
+			</Box>
 		);
-	});
-	
-	return(
-		<div className="container">
-			<div className="row">
-				<Media list>
-					{dashboardRow}
-				</Media>
-			</div>
-		</div>
-	);
 }
 
 export default DashboardList;

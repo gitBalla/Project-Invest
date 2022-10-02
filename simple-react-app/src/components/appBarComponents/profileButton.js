@@ -47,6 +47,8 @@ const ProfileButton = () => {
                     <MenuItem onClick={handleMenuClose}><Link to="/myApplications">My Applications</Link></MenuItem>
                     <MenuItem onClick={handleMenuClose}><Link to="/myProjects">My Projects</Link></MenuItem>
                     <MenuItem onClick={handleMenuClose}><Link to="/settings">Settings</Link></MenuItem>
+                    <MenuItem onClick={handleMenuClose}><Link to="/login">Login</Link></MenuItem>
+                    <MenuItem onClick={handleMenuClose}><Link to="/signup">Signup</Link></MenuItem>
                 </Menu>
             </div>
         );
