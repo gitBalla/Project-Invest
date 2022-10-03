@@ -12,12 +12,12 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     console.log(username, password);
 
-    fetch('https://devfund-api.azurewebsites.net/api/users/login', {
+    await fetch('https://devfund-api.azurewebsites.net/api/users/login', {
       method: 'POST',
       crossDomain: true,
       headers: {
