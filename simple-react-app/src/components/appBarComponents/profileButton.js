@@ -42,11 +42,24 @@ const ProfileButton = () => {
                     open={Boolean(anchorEl)}
                     onClose={handleMenuClose}
                 >
-                    <MenuItem onClick={handleMenuClose}><Link to="/">Dashboard</Link></MenuItem>
-                    <MenuItem onClick={handleMenuClose}><Link to="/profile">My Profile</Link></MenuItem>
-                    <MenuItem onClick={handleMenuClose}><Link to="/myApplications">My Applications</Link></MenuItem>
-                    <MenuItem onClick={handleMenuClose}><Link to="/myProjects">My Projects</Link></MenuItem>
-                    <MenuItem onClick={handleMenuClose}><Link to="/settings">Settings</Link></MenuItem>
+                    <Link to="/">
+                        <MenuItem onClick={handleMenuClose}>Dashboard</MenuItem>
+                    </Link>
+                    <Link to="/myApplications">
+                        <MenuItem onClick={handleMenuClose}>My Applications</MenuItem>
+                    </Link>
+                    <Link to="/myProjects">
+                        <MenuItem onClick={handleMenuClose}>My Projects</MenuItem>
+                    </Link>
+                    <Link to="/settings">
+                        <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
+                    </Link>
+                    <Link to="/login">
+                        <MenuItem onClick={handleMenuClose}>Login</MenuItem>
+                    </Link>
+                    <Link to="/signup">
+                        <MenuItem onClick={handleMenuClose}>Signup</MenuItem>
+                    </Link>
                 </Menu>
             </div>
         );

@@ -41,8 +41,13 @@ const AddButton = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
               >
-                <MenuItem onClick={handleMenuClose}><Link to="/projectForm">New Project</Link></MenuItem>
-                <MenuItem onClick={handleMenuClose}><Link to="/applicationForm">New Application</Link></MenuItem>
+                <Link to="/projectForm">
+                  <MenuItem onClick={handleMenuClose}>New Project</MenuItem>
+                </Link>
+                <Link to="/applicationForm">
+                  <MenuItem onClick={handleMenuClose}>New Application</MenuItem>
+                </Link>
+                
               </Menu>
             </div>
         );
