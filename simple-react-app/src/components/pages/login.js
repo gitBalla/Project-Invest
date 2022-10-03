@@ -1,8 +1,12 @@
 import React from 'react';
+import { Button, List, ListItem, Paper, TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,38 +35,47 @@ const Login = () => {
         if (data.data) {
           // Store JWT token in cookie session data
           document.cookie = `token=${data.data}`;
+          navigate('/');
         }
       });
   };
 
   return (
     <div>
-      <form
-        style={{
-          display: 'flex',
-          'flex-direction': 'column',
-          'justify-content': 'center',
-          'align-items': 'center',
-        }}
-        onSubmit={handleSubmit}
-      >
-        <h3>Login Form</h3>
-
-        <label>Username:</label>
-        <input
-          type="text"
-          onChange={(e) => setUsername(e.target.value)}
-          value={username}
-        />
-        <label>Password:</label>
-        <input
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-
-        <button>Login</button>
-      </form>
+      <h3>Login Form</h3>
+      <Paper elevation={3} sx={{ width: 1000, margin: 'auto' }}>
+        <form onSubmit={handleSubmit}>
+          <List>
+            <ListItem>
+              <TextField
+                required
+                label="Username"
+                variant="filled"
+                margin="normal"
+                fullWidth
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </ListItem>
+            <ListItem>
+              <TextField
+                required
+                label="Password"
+                type="password"
+                autoComplete="current-password"
+                variant="filled"
+                margin="normal"
+                fullWidth
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </ListItem>
+            <ListItem>
+              <Button variant="contained" type="submit">
+                Submit
+              </Button>
+            </ListItem>
+          </List>
+        </form>
+      </Paper>
     </div>
   );
 };

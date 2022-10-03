@@ -1,4 +1,14 @@
 import React from 'react';
+import {
+  Button,
+  List,
+  ListItem,
+  Paper,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [username, setUsername] = React.useState('');
@@ -7,6 +17,8 @@ const Signup = () => {
   const [lastName, setLastName] = React.useState('');
   const [developer, setDeveloper] = React.useState(false);
   const [investor, setInvestor] = React.useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,62 +48,82 @@ const Signup = () => {
           alert('Username taken, try another username');
         }
         console.log(data);
+        navigate('/login');
       });
   };
 
   return (
     <div>
-      <form
-        style={{
-          display: 'flex',
-          'flex-direction': 'column',
-          'justify-content': 'center',
-          'align-items': 'center',
-        }}
-        onSubmit={handleSubmit}
-      >
-        <h3>Signup Form</h3>
-
-        <label>First Name:</label>
-        <input
-          type="text"
-          onChange={(e) => setFirstName(e.target.value)}
-          value={firstName}
-        />
-        <label>Last Name:</label>
-        <input
-          type="text"
-          onChange={(e) => setLastName(e.target.value)}
-          value={lastName}
-        />
-        <label>Username:</label>
-        <input
-          type="text"
-          onChange={(e) => setUsername(e.target.value)}
-          value={username}
-        />
-        <label>Password:</label>
-        <input
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-        <label>Developer:</label>
-        <input
-          type="checkbox"
-          name="box1"
-          onChange={(e) => setDeveloper(e.target.checked)}
-          value={developer}
-        />
-        <label>Investor:</label>
-        <input
-          type="checkbox"
-          onChange={(e) => setInvestor(e.target.checked)}
-          value={investor}
-        />
-
-        <button>Sign up</button>
-      </form>
+      <h3>Signup Form</h3>
+      <Paper elevation={3} sx={{ width: 1000, margin: 'auto' }}>
+        <form onSubmit={handleSubmit}>
+          <List>
+            <ListItem>
+              <TextField
+                required
+                label="First Name"
+                variant="filled"
+                margin="normal"
+                fullWidth
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </ListItem>
+            <ListItem>
+              <TextField
+                required
+                label="Last name"
+                variant="filled"
+                margin="normal"
+                fullWidth
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </ListItem>
+            <ListItem>
+              <TextField
+                required
+                label="Username"
+                variant="filled"
+                margin="normal"
+                fullWidth
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </ListItem>
+            <ListItem>
+              <TextField
+                required
+                label="Password"
+                type="password"
+                autoComplete="current-password"
+                variant="filled"
+                margin="normal"
+                fullWidth
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </ListItem>
+            <ListItem>
+              <FormControlLabel
+                control={
+                  <Checkbox onChange={(e) => setDeveloper(e.target.checked)} />
+                }
+                label="Developer"
+              />
+            </ListItem>
+            <ListItem>
+              <FormControlLabel
+                control={
+                  <Checkbox onChange={(e) => setInvestor(e.target.checked)} />
+                }
+                label="Investor"
+              />
+            </ListItem>
+            <ListItem>
+              <Button variant="contained" type="submit">
+                Submit
+              </Button>
+            </ListItem>
+          </List>
+        </form>
+      </Paper>
     </div>
   );
 };

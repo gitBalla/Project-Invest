@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
     await project.save();
     res.send(project);
   } catch (e) {
-    res.send({ error: 'Failure when making POST to user' });
+    res.send({ error: 'Failure when making POST to project' });
   }
 });
 
