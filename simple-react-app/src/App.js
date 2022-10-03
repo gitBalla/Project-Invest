@@ -9,8 +9,7 @@ import MyProjects from './components/pages/myProjects.js';
 import Settings from './components/pages/settings.js';
 import ProjectForm from './components/pages/projectForm.js';
 import ApplicationForm from './components/pages/applicationForm.js';
-
-
+import ProjectPage from './components/projectPagesComponents/projectPage.js';
 
 function App() {
   return (
@@ -25,6 +24,7 @@ function App() {
             <Route path="settings" element={<Settings />} />
             <Route path="projectForm" element={<ProjectForm />} />
             <Route path="applicationForm" element={<ApplicationForm />} />
+            <Route path="projectPage" element={<ProjectPage />} />
             <Route path="*" element={<h1>404</h1>} />
           </Route>
         </Routes>

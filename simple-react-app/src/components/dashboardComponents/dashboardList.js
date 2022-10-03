@@ -1,5 +1,6 @@
 import React from 'react';
 import { Media } from 'reactstrap';
+import { Link } from "react-router-dom";
 import {
 	ListItem,
 	ListItemAvatar,
@@ -12,9 +13,12 @@ import {
 	Typography,
 	AccordionDetails,
 	Card,
+	CardActions,
+	CardActionArea,
+	Button
   } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
+import ProjectPage from "../projectPagesComponents/projectPage";
 
 function DashboardList(props) {
 	const dashboardRow = props.projects.map((project) => {
@@ -28,22 +32,26 @@ function DashboardList(props) {
 						backgroundColor: 'primary.light',
 					}
 					}}>
-					<ListItem>
-						<ListItemAvatar>
-							<Avatar src={project.image}/>
-						</ListItemAvatar>
-						<ListItemText primary={project.name} secondary={project.category} />
-					</ListItem>
-					<ListItem>
-						<Accordion sx={{ width: '100%'}}>
-							<AccordionSummary expandIcon={<ExpandMoreIcon />} >
-								<Typography variant="subtitle2">Description</Typography>
-							</AccordionSummary>
-							<AccordionDetails>
-								<Typography variant="subtitle2"> {project.description} </Typography>
-							</AccordionDetails>
-						</Accordion>
-					</ListItem>
+					<Link to="/projectPage" state={{ currentProject: project}} style={{textDecoration: 'none'}}>
+						<CardActionArea>
+							<ListItem>
+								<ListItemAvatar>
+									<Avatar src={project.image}/>
+								</ListItemAvatar>
+								<ListItemText primary={<Typography style={{ color: "black" }}>{project.name}</Typography>} secondary={project.category} />
+							</ListItem>
+						</CardActionArea>
+					</Link>
+						<ListItem>
+							<Accordion sx={{ width: '100%'}}>
+								<AccordionSummary expandIcon={<ExpandMoreIcon />} >
+									<Typography variant="subtitle2">Description</Typography>
+								</AccordionSummary>
+								<AccordionDetails>
+									<Typography variant="subtitle2"> {project.description} </Typography>
+								</AccordionDetails>
+							</Accordion>
+						</ListItem>
 				</Card>
 				<Divider />
 			</List>
