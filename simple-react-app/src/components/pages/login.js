@@ -78,11 +78,7 @@ const Login = () => {
               />
             </ListItem>
             <ListItem>
-              <Button
-                variant="contained"
-                type="submit"
-                onChange={() => setUser('Changed')}
-              >
+              <Button variant="contained" type="submit">
                 Submit
               </Button>
             </ListItem>
