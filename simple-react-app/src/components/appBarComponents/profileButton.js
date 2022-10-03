@@ -17,6 +17,7 @@ const ProfileButton = () => {
   };
 
   const handleLogout = () => {
+    handleMenuClose();
     setUser('');
     setIsLoggedIn(false);
     // Set cookie to expiry
