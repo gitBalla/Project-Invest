@@ -25,6 +25,7 @@ router.post('/', async (req, res) => {
   try {
     const project = new Project({
       name: req.body.name,
+      username: req.body.username,
       image: req.body.image,
       category: req.body.category,
       description: req.body.description,
@@ -33,7 +34,7 @@ router.post('/', async (req, res) => {
     await project.save();
     res.send(project);
   } catch (e) {
-    res.send({ error: 'Failure when making POST to user' });
+    res.send({ error: 'Failure when making POST to project' });
   }
 });
 

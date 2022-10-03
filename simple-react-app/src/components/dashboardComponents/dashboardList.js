@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import {
 	ListItem,
 	ListItemAvatar,
@@ -10,10 +11,10 @@ import {
 	AccordionDetails,
 	Card,
 	Box,
+	CardActionArea,
   } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-  
 
 function DashboardList(props) {
 		return (
@@ -28,12 +29,16 @@ function DashboardList(props) {
 										backgroundColor: 'primary.light',
 									}
 									}}>
+								<Link to="/projectPage" state={{ currentProject: project}} style={{textDecoration: 'none'}}>
+								<CardActionArea>		
 								<ListItem>
 								<ListItemAvatar>
 									<Avatar src={project.image}/>
 								</ListItemAvatar>
-								<ListItemText primary={project.name} secondary={project.category}/>
+								<ListItemText primary={<Typography style={{ color: "black" }}>{project.name}</Typography>} secondary={project.category}/>
 								</ListItem>
+								</CardActionArea>	
+								</Link>
 								<ListItem>
 									<Accordion sx={{ width: '100%'}}>
 										<AccordionSummary expandIcon={<ExpandMoreIcon />} >

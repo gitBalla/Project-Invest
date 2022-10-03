@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from 'react';
+import { UserContext } from '../../App';
+
 
 const Settings = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <div>
-      <h3>[User] Settings</h3>
+      <h3>{user} Settings</h3>
     </div>
   );
 };
