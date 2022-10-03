@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import Dashboard from './Dashboard';
+import Dashboard from './dashboard';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
