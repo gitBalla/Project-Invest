@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, List, ListItem, Paper, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../App';
+import jwt from 'jwt-decode';
 
 const Login = () => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
+
+  const { setUser, setIsLoggedIn } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -35,6 +39,11 @@ const Login = () => {
         if (data.data) {
           // Store JWT token in cookie session data
           document.cookie = `token=${data.data}`;
+          const userJWT = jwt(document.cookie);
+          console.log(`User JWT: ${userJWT.username}`);
+          // Update context
+          setUser(userJWT.username);
+          setIsLoggedIn(true);
           navigate('/');
         }
       });

@@ -1,12 +1,10 @@
 import React from "react";
-import { Media } from 'reactstrap';
 import './projectPage.css';
-import {Button, Grid, Paper, Typography, Box} from '@mui/material';
+import {Button, Typography, Box} from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import GroupIcon from '@mui/icons-material/Group';
-import { makeStyles } from '@mui/material/styles';
 import { useLocation } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -14,7 +12,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { styled } from '@mui/material/styles';
 
 function ProjectPage() {
     

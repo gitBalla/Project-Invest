@@ -43,11 +43,7 @@ const AddButton = () => {
               >
                 <Link to="/projectForm">
                   <MenuItem onClick={handleMenuClose}>New Project</MenuItem>
-                </Link>
-                <Link to="/applicationForm">
-                  <MenuItem onClick={handleMenuClose}>New Application</MenuItem>
-                </Link>
-                
+                </Link>                
               </Menu>
             </div>
         );

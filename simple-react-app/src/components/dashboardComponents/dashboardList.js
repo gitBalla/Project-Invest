@@ -1,5 +1,4 @@
 import React from 'react';
-import { Media } from 'reactstrap';
 import { Link } from "react-router-dom";
 import {
 	ListItem,
@@ -12,13 +11,10 @@ import {
 	AccordionDetails,
 	Card,
 	Box,
-	CardActions,
 	CardActionArea,
-	Button
   } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ProjectPage from "../projectPagesComponents/projectPage";
 
 function DashboardList(props) {
 		return (

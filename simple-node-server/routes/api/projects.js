@@ -25,6 +25,7 @@ router.post('/', async (req, res) => {
   try {
     const project = new Project({
       name: req.body.name,
+      username: req.body.username,
       image: req.body.image,
       category: req.body.category,
       description: req.body.description,
