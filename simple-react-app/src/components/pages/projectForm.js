@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useContext } from 'react';
 import { Button, List, ListItem, Paper, TextField } from "@mui/material"
 import Moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from '../../App';
+
 
 const ProjectForm = () => {
   const [projectName, setProjectName] = React.useState("");
   const [projectDescription, setProjectDescription] = React.useState("");
   const [projectCategory, setProjectCategory] = React.useState("");
+  const { user } = useContext(UserContext);
+
 
   const navigate = useNavigate();
 
-  console.log(projectName, projectDescription, projectCategory, Moment().format('DD-MMM-YYYY'));
+  console.log(projectName, user, projectDescription, projectCategory, Moment().format('DD-MMM-YYYY'));
 
   // Submit button handling
   const handleSubmit = async (e) => {
@@ -26,6 +30,7 @@ const ProjectForm = () => {
       },
       body: JSON.stringify({
         name: projectName,
+        username: user,
         image: 'assets/images/logo192.png',
         category: projectCategory,
         description: projectDescription,
@@ -43,6 +48,16 @@ const ProjectForm = () => {
       <Paper elevation={3} sx={{ width:1000, margin:'auto' }}>
         <form onSubmit={handleSubmit}>
           <List>
+            <ListItem>
+              <TextField
+                disabled
+                id="filled-disabled"
+                label="Username"
+                defaultValue={user}
+                variant="filled"
+                margin='normal'
+              />
+            </ListItem>
             <ListItem>
               <TextField
                 required

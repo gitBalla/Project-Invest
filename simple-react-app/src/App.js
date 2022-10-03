@@ -8,7 +8,6 @@ import MyApplications from './components/pages/myApplications';
 import MyProjects from './components/pages/myProjects.js';
 import Settings from './components/pages/settings.js';
 import ProjectForm from './components/pages/projectForm.js';
-import ApplicationForm from './components/pages/applicationForm.js';
 import Signup from './components/pages/signup.js';
 import Login from './components/pages/login.js';
 import ProjectPage from './components/projectPagesComponents/projectPage.js';
@@ -31,7 +30,6 @@ function App() {
               <Route path="myProjects" element={<MyProjects />} />
               <Route path="settings" element={<Settings />} />
               <Route path="projectForm" element={<ProjectForm />} />
-              <Route path="applicationForm" element={<ApplicationForm />} />
               <Route path="signup" element={<Signup />} />
               <Route path="login" element={<Login />} />
               <Route path="projectPage" element={<ProjectPage />} />
