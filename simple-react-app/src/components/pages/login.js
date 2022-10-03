@@ -45,7 +45,6 @@ const Login = () => {
             <ListItem>
               <TextField
                 required
-                id="filled-required"
                 label="Username"
                 variant="filled"
                 margin="normal"
@@ -56,7 +55,6 @@ const Login = () => {
             <ListItem>
               <TextField
                 required
-                id="filled-password-required"
                 label="Password"
                 type="password"
                 autoComplete="current-password"
