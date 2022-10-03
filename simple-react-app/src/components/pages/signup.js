@@ -8,6 +8,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [username, setUsername] = React.useState('');
@@ -16,6 +17,8 @@ const Signup = () => {
   const [lastName, setLastName] = React.useState('');
   const [developer, setDeveloper] = React.useState(false);
   const [investor, setInvestor] = React.useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,6 +48,7 @@ const Signup = () => {
           alert('Username taken, try another username');
         }
         console.log(data);
+        navigate('/login');
       });
   };
 

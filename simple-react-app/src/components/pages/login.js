@@ -1,9 +1,12 @@
 import React from 'react';
 import { Button, List, ListItem, Paper, TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,6 +35,7 @@ const Login = () => {
         if (data.data) {
           // Store JWT token in cookie session data
           document.cookie = `token=${data.data}`;
+          navigate('/');
         }
       });
   };
