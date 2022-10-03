@@ -11,6 +11,7 @@ import ProjectForm from './components/pages/projectForm.js';
 import Signup from './components/pages/signup.js';
 import Login from './components/pages/login.js';
 import ProjectPage from './components/projectPagesComponents/projectPage.js';
+import EditProfileForm from './components/pages/editProfileForm.js';
 
 export const UserContext = React.createContext();
 
@@ -32,6 +33,7 @@ function App() {
               <Route path="projectForm" element={<ProjectForm />} />
               <Route path="signup" element={<Signup />} />
               <Route path="login" element={<Login />} />
+              <Route path="editProfileForm" element={<EditProfileForm/>} />
               <Route path="projectPage" element={<ProjectPage />} />
               <Route path="*" element={<h1>404</h1>} />
             </Route>

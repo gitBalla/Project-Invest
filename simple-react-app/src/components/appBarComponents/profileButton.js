@@ -56,6 +56,9 @@ const ProfileButton = () => {
         </Link>
         {isLoggedIn === true && (
           <div>
+            <Link to="/profile">
+              <MenuItem onClick={handleMenuClose}>My Profile</MenuItem>
+            </Link>
             <Link to="/myApplications">
               <MenuItem onClick={handleMenuClose}>My Applications</MenuItem>
             </Link>
