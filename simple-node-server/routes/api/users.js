@@ -55,6 +55,23 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Update user
+router.put('/', async (req, res) => {
+  try {
+    const user = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      username: req.body.username,
+      password: req.body.password,
+      developer: req.body.developer,
+      investor: req.body.investor,
+    };
+    await User.findOneAndUpdate({ username: req.body.username }, user);
+  } catch (e) {
+    res.send({ error: e });
+  }
+});
+
 // Login: generate JWT token, return to user
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;

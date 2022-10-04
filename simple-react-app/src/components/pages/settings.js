@@ -6,16 +6,60 @@ import {
   TextField,
   FormControlLabel,
   Checkbox,
-  IconButton,
-  Icon,
+  Button,
 } from '@mui/material';
-import { ModeEdit } from '@mui/icons-material';
 import { CircularProgress } from '@mui/material';
 import { UserContext } from '../../App';
 import useFetch from 'react-fetch-hook';
 
 const Settings = () => {
   const { user } = useContext(UserContext);
+  const [editDisabled, setEditDisabled] = React.useState(true);
+
+  const [password, setPassword] = React.useState('');
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
+  const [developer, setDeveloper] = React.useState(false);
+  const [investor, setInvestor] = React.useState(false);
+
+  const handleSubmit = async (e) => {
+    console.log(firstName, lastName, user, password, developer, investor);
+    setEditDisabled(true);
+    await fetch('https://devfund-api.azurewebsites.net/api/users', {
+      method: 'PUT',
+      crossDomain: true,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
+        username: user,
+        password: password,
+        developer: developer,
+        investor: investor,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          alert(data.error);
+        }
+        console.log(data);
+      });
+  };
+
+  const editDetails = () => {
+    // Set initial values
+    setFirstName(registration.data.firstName);
+    setLastName(registration.data.lastName);
+    setPassword(registration.data.password);
+    setDeveloper(registration.data.developer);
+    setInvestor(registration.data.investor);
+    setEditDisabled(false);
+  };
 
   const registration = useFetch(
     `https://devfund-api.azurewebsites.net/api/users/${user}`
@@ -60,68 +104,67 @@ const Settings = () => {
                 variant="filled"
                 margin="normal"
               />
-              <IconButton>
-                <Icon component={ModeEdit} fontSize="large" />
-              </IconButton>
             </ListItem>
             <ListItem>
               <TextField
-                disabled
+                disabled={editDisabled}
                 label="Password"
                 defaultValue={registration.data.password}
                 type="password"
                 variant="filled"
                 margin="normal"
+                onChange={(e) => setPassword(e.target.value)}
               />
-              <IconButton>
-                <Icon component={ModeEdit} fontSize="large" />
-              </IconButton>
             </ListItem>
             <ListItem>
               <TextField
-                disabled
+                disabled={editDisabled}
                 label="First Name"
                 defaultValue={registration.data.firstName}
                 variant="filled"
                 margin="normal"
+                onChange={(e) => setFirstName(e.target.value)}
               />
-              <IconButton>
-                <Icon component={ModeEdit} fontSize="large" />
-              </IconButton>
             </ListItem>
             <ListItem>
               <TextField
-                disabled
+                disabled={editDisabled}
                 label="Last Name"
                 defaultValue={registration.data.lastName}
                 variant="filled"
                 margin="normal"
+                onChange={(e) => setLastName(e.target.value)}
               />
-              <IconButton>
-                <Icon component={ModeEdit} fontSize="large" />
-              </IconButton>
             </ListItem>
             <ListItem>
               <FormControlLabel
-                disabled
+                disabled={editDisabled}
                 control={<Checkbox />}
                 label="Developer"
                 checked={registration.data.developer}
+                onChange={(e) => setDeveloper(e.target.checked)}
               />
-              <IconButton>
-                <Icon component={ModeEdit} fontSize="large" />
-              </IconButton>
             </ListItem>
             <ListItem>
               <FormControlLabel
-                disabled
+                disabled={editDisabled}
                 control={<Checkbox />}
                 label="Investor"
                 checked={registration.data.investor}
+                onChange={(e) => setInvestor(e.target.checked)}
               />
-              <IconButton>
-                <Icon component={ModeEdit} fontSize="large" />
-              </IconButton>
+            </ListItem>
+            <ListItem>
+              <Button onClick={editDetails} variant="contained">
+                Edit
+              </Button>
+              <Button
+                disabled={editDisabled}
+                onClick={handleSubmit}
+                variant="contained"
+              >
+                Apply
+              </Button>
             </ListItem>
           </List>
         </form>
