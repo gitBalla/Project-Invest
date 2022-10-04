@@ -25,7 +25,7 @@ const Settings = () => {
   const handleSubmit = async (e) => {
     console.log(firstName, lastName, user, password, developer, investor);
     setEditDisabled(true);
-    await fetch('http://localhost:1337/api/users', {
+    await fetch('https://devfund-api.azurewebsites.net/api/users', {
       method: 'PUT',
       crossDomain: true,
       headers: {
