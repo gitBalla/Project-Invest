@@ -1,10 +1,40 @@
-import React from "react";
-import { Avatar, Divider, Grid, Icon, Stack, IconButton, Typography } from "@mui/material";
+import React, { useContext } from "react";
+import {
+  Avatar,
+  Divider,
+  Grid,
+  Icon,
+  Stack,
+  IconButton,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import { Container } from "@mui/system";
 import { GitHub, Email, ModeEdit, StarOutline } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../App";
+import useFetch from "react-fetch-hook";
 
 const Profile = (props) => {
+  const { user } = useContext(UserContext);
+  const currentUser = useFetch(
+    `http://localhost:1337/api/profiles/${user}` //http://localhost:1337/api/profiles & https://devfund-api.azurewebsites.net/api/profiles
+  )
+
+  if (currentUser.error) {
+    return (
+      <div>
+        <p>Error: {currentUser.error.name}</p>
+        <p>Message: {currentUser.error.message}</p>
+        <br />
+        <p>Stack: {currentUser.error.stack}</p>
+      </div>
+    );
+  }
+  if (currentUser.isLoading) {
+    return <CircularProgress color="inherit" />;
+  }
+
   return (
     <Container maxWidth="md">
       <Grid justifyContent="center" container padding={1} spacing={2}>
@@ -26,12 +56,12 @@ const Profile = (props) => {
           </IconButton>
           <Stack direction="column">
             <Avatar sx={{ width: 96, height: 96 }} />
-            <Typography>Username</Typography>
+            <Typography>{currentUser.data.username}</Typography>
           </Stack>
           <IconButton>
             <Icon component={Email} fontSize="large" />
           </IconButton>
-          <Link to="/editProfileForm">
+          <Link to="/editProfileForm" state={{currentUser: currentUser}}>
             <IconButton>
               <Icon component={ModeEdit} fontSize="large" />
             </IconButton>

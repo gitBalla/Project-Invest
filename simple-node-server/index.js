@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const config = require('./config/dev');
 const projects = require('./routes/api/projects');
 const users = require('./routes/api/users');
+const profiles = require('./routes/api/profiles');
 
 // Connect to MongoDB database
 try {
@@ -23,6 +24,8 @@ try {
     app.use('/api/projects', projects);
     // Users route
     app.use('/api/users', users);
+    // Profile route
+    app.use('/api/profiles', profiles);
 
     app.get('/details', (req, res) => {
       res.send({ data: 'Hello World, from express' });
