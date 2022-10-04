@@ -25,7 +25,7 @@ const Signup = () => {
 
     console.log(firstName, lastName, username, password, developer, investor);
 
-    await fetch('https://devfund-api.azurewebsites.net/api/users', {
+    await fetch('http://localhost:1337/api/users', { //'http://localhost:1337/api/users' & 'https://devfund-api.azurewebsites.net/api/users'
       method: 'POST',
       crossDomain: true,
       headers: {
@@ -45,7 +45,7 @@ const Signup = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          alert('Username taken, try another username');
+          alert(data.error);
         }
         console.log(data);
         navigate('/login');

@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const User = require('../../models/user');
 const config = require('../../config/dev');
+const Profile = require('../../models/profile');
 
 const router = express.Router();
 
@@ -33,12 +34,21 @@ router.post('/', async (req, res) => {
       developer: req.body.developer,
       investor: req.body.investor,
     });
+    const profile = new Profile({
+      username: req.body.username,
+      displayName: req.body.username,
+      profileImage: ' ',
+      description: ' ',
+      github: ' ',
+      email: ' ',
+    });
     const userExist = await User.find({ username: req.body.username });
     if (userExist.length > 0) {
-      res.send({ error: 'User exists' });
+      res.send({ error: 'Username exists' });
       return;
     }
     await user.save();
+    await profile.save();
     res.send(user);
   } catch (e) {
     res.send({ error: e });
