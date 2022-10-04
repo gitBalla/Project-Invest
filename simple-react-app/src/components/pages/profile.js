@@ -18,7 +18,7 @@ import useFetch from "react-fetch-hook";
 const Profile = (props) => {
   const { user } = useContext(UserContext);
   const currentUser = useFetch(
-    `http://localhost:1337/api/profiles/${user}` //http://localhost:1337/api/profiles & https://devfund-api.azurewebsites.net/api/profiles
+    `https://devfund-api.azurewebsites.net/api/profiles/${user}` //http://localhost:1337/api/profiles & https://devfund-api.azurewebsites.net/api/profiles
   )
 
   if (currentUser.error) {
