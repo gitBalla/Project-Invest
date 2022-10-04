@@ -16,7 +16,7 @@ import EditProfileForm from './components/pages/editProfileForm.js';
 export const UserContext = React.createContext();
 
 function App() {
-  const [user, setUser] = useState('Unchanged');
+  const [user, setUser] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
@@ -33,7 +33,7 @@ function App() {
               <Route path="projectForm" element={<ProjectForm />} />
               <Route path="signup" element={<Signup />} />
               <Route path="login" element={<Login />} />
-              <Route path="editProfileForm" element={<EditProfileForm/>} />
+              <Route path="editProfileForm" element={<EditProfileForm />} />
               <Route path="projectPage" element={<ProjectPage />} />
               <Route path="*" element={<h1>404</h1>} />
             </Route>
