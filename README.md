@@ -25,7 +25,7 @@ Project-Invest uses a number of technologies:
 - [Express] - fast node.js web framework
 - [ReactJS] - Component-based front-end library
 - [Material-UI] - ReactJS UI library
-- [Jest] - Javascript tetsing framework
+- [Jest] - Javascript testing framework
 
 
 
