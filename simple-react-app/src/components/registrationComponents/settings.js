@@ -62,9 +62,7 @@ const Settings = () => {
     setEditDisabled(false);
   };
 
-  const registration = useFetch(
-    `https://devfund-api.azurewebsites.net/api/users/${user}`
-  );
+  const registration = useFetch(GetApi(`users/${user}`));
 
   // Check if user exists by seeing if all users were returned
   if (Array.isArray(registration.data)) {
@@ -140,19 +138,25 @@ const Settings = () => {
             <ListItem>
               <FormControlLabel
                 disabled={editDisabled}
-                control={<Checkbox />}
+                control={
+                  <Checkbox
+                    defaultChecked={registration.data.developer}
+                    onChange={(e) => setDeveloper(e.target.checked)}
+                  />
+                }
                 label="Developer"
-                checked={registration.data.developer}
-                onChange={(e) => setDeveloper(e.target.checked)}
               />
             </ListItem>
             <ListItem>
               <FormControlLabel
                 disabled={editDisabled}
-                control={<Checkbox />}
+                control={
+                  <Checkbox
+                    defaultChecked={registration.data.investor}
+                    onChange={(e) => setInvestor(e.target.checked)}
+                  />
+                }
                 label="Investor"
-                checked={registration.data.investor}
-                onChange={(e) => setInvestor(e.target.checked)}
               />
             </ListItem>
             <ListItem>
