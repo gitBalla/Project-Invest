@@ -35,9 +35,7 @@ const Login = () => {
       .then((data) => {
         if (data.error) {
           alert(data.error);
-        }
-        console.log(data);
-        if (data.data) {
+        } else if (data.data) {
           // Store JWT token in cookie session data
           document.cookie = `token=${data.data}`;
           const userJWT = jwt(document.cookie);
@@ -47,6 +45,7 @@ const Login = () => {
           setIsLoggedIn(true);
           navigate('/');
         }
+        console.log(data);
       });
   };
 
