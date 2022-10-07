@@ -3,6 +3,7 @@ import { Button, List, ListItem, Paper, TextField } from "@mui/material"
 import Moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from '../../App';
+import { GetApi } from '../utilityComponents/currentAPI';
 
 
 const ProjectForm = () => {
@@ -20,7 +21,7 @@ const ProjectForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await fetch('https://devfund-api.azurewebsites.net/api/projects', { //http://localhost:1337/api/projects
+    await fetch(GetApi('projects'), {
       method: 'POST',
       crossDomain: true,
       headers: {

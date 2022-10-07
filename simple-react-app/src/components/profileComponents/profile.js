@@ -13,26 +13,25 @@ import { Container } from "@mui/system";
 import { GitHub, Email, ModeEdit, StarOutline } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../App";
-import useFetch from "react-fetch-hook";
+import { GetProfile } from "../utilityComponents/user";
 
 const Profile = (props) => {
   const { user } = useContext(UserContext);
-  const currentUser = useFetch(
-    `https://devfund-api.azurewebsites.net/api/profiles/${user}` //http://localhost:1337/api/profiles & https://devfund-api.azurewebsites.net/api/profiles
-  )
+  //take the context user (from user namespace) and get the profile details from api
+  const userProfile = GetProfile(user);
 
-  if (currentUser.error) {
+  if (userProfile.error) {
     return (
       <div>
-        <p>Error: {currentUser.error.name}</p>
-        <p>Message: {currentUser.error.message}</p>
+        <p>Error: {userProfile.error.name}</p>
+        <p>Message: {userProfile.error.message}</p>
         <br />
-        <p>Stack: {currentUser.error.stack}</p>
+        <p>Stack: {userProfile.error.stack}</p>
       </div>
     );
   }
-  if (currentUser.isLoading) {
-    return <CircularProgress color="inherit" />;
+  if (userProfile.isLoading) {
+  return <CircularProgress color="inherit" />;
   }
 
   return (
@@ -49,19 +48,19 @@ const Profile = (props) => {
           </IconButton>
           <IconButton
             variant="link"
-            href="https://github.com/TobyLR?tab=repositories"
+            href="https://github.com/"
             target="_blank"
           >
             <Icon component={GitHub} fontSize="large" />
           </IconButton>
           <Stack direction="column">
             <Avatar sx={{ width: 96, height: 96 }} />
-            <Typography>{currentUser.data.username}</Typography>
+            <Typography>{userProfile.data.username}</Typography>
           </Stack>
           <IconButton>
             <Icon component={Email} fontSize="large" />
           </IconButton>
-          <Link to="/editProfileForm" state={{currentUser: currentUser}}>
+          <Link to="/editProfileForm" state={{userProfile: userProfile}}>
             <IconButton>
               <Icon component={ModeEdit} fontSize="large" />
             </IconButton>

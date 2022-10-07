@@ -9,6 +9,7 @@ import {
   Checkbox,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { GetApi } from '../utilityComponents/currentAPI';
 
 const Signup = () => {
   const [username, setUsername] = React.useState('');
@@ -25,7 +26,7 @@ const Signup = () => {
 
     console.log(firstName, lastName, username, password, developer, investor);
 
-    await fetch('https://devfund-api.azurewebsites.net/api/users', { //'http://localhost:1337/api/users' & 'https://devfund-api.azurewebsites.net/api/users'
+    await fetch(GetApi('users'), {
       method: 'POST',
       crossDomain: true,
       headers: {

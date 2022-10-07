@@ -19,7 +19,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 function DashboardList(props) {
 		return (
 			<Box sx={{ flexGrow: 1 }}>
-      			<Grid container padding={{xs:3}} spacing={{ xs: 1, md: 2 }} columns={{ xs: 4, sm: 8, md: 16 }}>
+				{/**columns refers to how many cards will fit on the screen in each view size */}
+      			<Grid container padding={{xs:3}} spacing={{ xs: 1, sm: 2}} columns={{ xs: 1, sm: 8, md: 12, lg: 16, xl: 20 }}>
 					{props.projects.map((project) => (
 						<Grid xs={2} sm={4} md={4} key={project}>
 							<Card sx={{

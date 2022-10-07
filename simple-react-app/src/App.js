@@ -3,15 +3,15 @@ import { HashRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Dashboard from './components/dashboardComponents/dashboard.js';
 import AppBar from './components/appBarComponents/appBar.js';
-import Profile from './components/pages/profile.js';
-import MyApplications from './components/pages/myApplications';
-import MyProjects from './components/pages/myProjects.js';
-import Settings from './components/pages/settings.js';
-import ProjectForm from './components/pages/projectForm.js';
-import Signup from './components/pages/signup.js';
-import Login from './components/pages/login.js';
-import ProjectPage from './components/projectPagesComponents/projectPage.js';
-import EditProfileForm from './components/pages/editProfileForm.js';
+import Profile from './components/profileComponents/profile.js';
+import MyApplications from './components/myApplicationsComponents/myApplications';
+import MyProjects from './components/myProjectsComponents/myProjects.js';
+import Settings from './components/registrationComponents/settings.js';
+import ProjectForm from './components/newProjectComponents/newProjectForm.js';
+import Signup from './components/registrationComponents/signup.js';
+import Login from './components/registrationComponents/login.js';
+import ProjectPage from './components/projectPageComponents/projectPage.js';
+import EditProfileForm from './components/profileComponents/editProfileForm.js';
 
 export const UserContext = React.createContext();
 
