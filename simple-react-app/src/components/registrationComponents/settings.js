@@ -140,19 +140,25 @@ const Settings = () => {
             <ListItem>
               <FormControlLabel
                 disabled={editDisabled}
-                control={<Checkbox />}
+                control={
+                  <Checkbox
+                    defaultChecked={registration.data.developer}
+                    onChange={(e) => setDeveloper(e.target.checked)}
+                  />
+                }
                 label="Developer"
-                checked={registration.data.developer}
-                onChange={(e) => setDeveloper(e.target.checked)}
               />
             </ListItem>
             <ListItem>
               <FormControlLabel
                 disabled={editDisabled}
-                control={<Checkbox />}
+                control={
+                  <Checkbox
+                    defaultChecked={registration.data.investor}
+                    onChange={(e) => setInvestor(e.target.checked)}
+                  />
+                }
                 label="Investor"
-                checked={registration.data.investor}
-                onChange={(e) => setInvestor(e.target.checked)}
               />
             </ListItem>
             <ListItem>
