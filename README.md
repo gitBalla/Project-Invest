@@ -1,4 +1,4 @@
-# Project-Invest
+# Project-Invest: https://devfund.azurewebsites.net/
 ## _The developer crowdsourcing platform_
 
 Team members: John Balla, Rebecca Galletta, Toby Rutherford, Vincent Tran
@@ -21,7 +21,7 @@ Project-Invest uses a number of technologies:
 - [Express] - fast node.js web framework
 - [ReactJS] - Component-based front-end library
 - [Material-UI] - ReactJS UI library
-- [Jest] - Javascript tetsing framework
+- [Jest] - Javascript testing framework
 
 
 
