@@ -11,6 +11,7 @@ import {
 import { CircularProgress } from '@mui/material';
 import { UserContext } from '../../App';
 import useFetch from 'react-fetch-hook';
+import { GetApi } from '../utilityComponents/currentAPI';
 
 const Settings = () => {
   const { user } = useContext(UserContext);
@@ -25,7 +26,7 @@ const Settings = () => {
   const handleSubmit = async (e) => {
     console.log(firstName, lastName, user, password, developer, investor);
     setEditDisabled(true);
-    await fetch('https://devfund-api.azurewebsites.net/api/users', {
+    await fetch(GetApi('users'), {
       method: 'PUT',
       crossDomain: true,
       headers: {

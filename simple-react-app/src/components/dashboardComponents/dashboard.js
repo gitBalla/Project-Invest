@@ -1,16 +1,13 @@
-import React /*, { useContext }*/ from 'react';
+import React from 'react';
 import './dashboard.css';
 import { CircularProgress } from '@mui/material';
 import DashboardList from './dashboardList';
 import useFetch from 'react-fetch-hook';
-//import { UserContext } from '../../App';
+import { GetApi } from '../utilityComponents/currentAPI';
+
 
 function Dashboard() {
-  const projects = useFetch(
-    'https://devfund-api.azurewebsites.net/api/projects'
-  ); //http://localhost:1337/api/projects
-
-  //const { user, isLoggedIn } = useContext(UserContext);
+  const projects = useFetch(GetApi('projects'));
 
   // Displays status of get call
   if (projects.error) {

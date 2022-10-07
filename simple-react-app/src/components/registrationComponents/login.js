@@ -3,6 +3,7 @@ import { Button, List, ListItem, Paper, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
 import jwt from 'jwt-decode';
+import { GetApi } from '../utilityComponents/currentAPI';
 
 const Login = () => {
   const [username, setUsername] = React.useState('');
@@ -17,7 +18,7 @@ const Login = () => {
 
     console.log(username, password);
 
-    await fetch('https://devfund-api.azurewebsites.net/api/users/login', {
+    await fetch(GetApi('users/login'), {
       method: 'POST',
       crossDomain: true,
       headers: {

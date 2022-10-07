@@ -27,6 +27,7 @@ const ProfileButton = () => {
   return (
     <div>
       <IconButton
+        role="profileMenu"
         size="large"
         aria-label="account of current user"
         aria-controls="menu-appbar"
@@ -52,12 +53,12 @@ const ProfileButton = () => {
         onClose={handleMenuClose}
       >
         <Link to="/">
-          <MenuItem onClick={handleMenuClose}>Dashboard</MenuItem>
+          <MenuItem role="dashboardMenuItem" onClick={handleMenuClose}>Dashboard</MenuItem>
         </Link>
         {isLoggedIn === true && (
           <div>
             <Link to="/profile">
-              <MenuItem onClick={handleMenuClose}>My Profile</MenuItem>
+              <MenuItem role="profileMenuItem" onClick={handleMenuClose}>My Profile</MenuItem>
             </Link>
             <Link to="/myApplications">
               <MenuItem onClick={handleMenuClose}>My Applications</MenuItem>
@@ -66,20 +67,20 @@ const ProfileButton = () => {
               <MenuItem onClick={handleMenuClose}>My Projects</MenuItem>
             </Link>
             <Link to="/settings">
-              <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
+              <MenuItem role="settingsMenuItem" onClick={handleMenuClose}>Settings</MenuItem>
             </Link>
             <Link to="/login">
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              <MenuItem role="logoutMenuItem" onClick={handleLogout}>Logout</MenuItem>
             </Link>
           </div>
         )}
         {isLoggedIn === false && (
           <div>
             <Link to="/login">
-              <MenuItem onClick={handleMenuClose}>Login</MenuItem>
+              <MenuItem role="loginMenuItem" onClick={handleMenuClose}>Login</MenuItem>
             </Link>
             <Link to="/signup">
-              <MenuItem onClick={handleMenuClose}>Signup</MenuItem>
+              <MenuItem role="signupMenuItem" onClick={handleMenuClose}>Signup</MenuItem>
             </Link>
           </div>
         )}
