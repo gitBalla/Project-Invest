@@ -62,9 +62,7 @@ const Settings = () => {
     setEditDisabled(false);
   };
 
-  const registration = useFetch(
-    `https://devfund-api.azurewebsites.net/api/users/${user}`
-  );
+  const registration = useFetch(GetApi(`users/${user}`));
 
   // Check if user exists by seeing if all users were returned
   if (Array.isArray(registration.data)) {
