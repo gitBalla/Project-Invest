@@ -47,9 +47,10 @@ const Signup = () => {
       .then((data) => {
         if (data.error) {
           alert(data.error);
+        } else {
+          console.log(data);
+          navigate('/login');
         }
-        console.log(data);
-        navigate('/login');
       });
   };
 
