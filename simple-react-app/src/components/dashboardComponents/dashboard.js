@@ -1,18 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './dashboard.css';
 import { CircularProgress } from '@mui/material';
 import DashboardList from './dashboardList';
 import useFetch from 'react-fetch-hook';
-import { UserContext } from '../../App';
+import { GetApi } from '../utilityComponents/currentAPI';
+
 
 function Dashboard() {
-  const projects = useFetch(
-    'https://devfund-api.azurewebsites.net/api/projects'
-  ); //http://localhost:1337/api/projects
-
-  const { user, isLoggedIn } = useContext(UserContext);
-
-  console.log(`Dashboard: ${user}, ${isLoggedIn}`);
+  const projects = useFetch(GetApi('projects'));
 
   // Displays status of get call
   if (projects.error) {
@@ -28,6 +23,7 @@ function Dashboard() {
   if (projects.isLoading) {
     return <CircularProgress color="inherit" />;
   }
+
   // Displays the resulting projects if successful/done loading
   return (
     <div>

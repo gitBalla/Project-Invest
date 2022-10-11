@@ -1,29 +1,30 @@
-import React, { useContext } from 'react';
-import { AppBar, Box, Toolbar, Typography
-} from "@mui/material";
+import React from 'react';
+import { AppBar, Toolbar, Box } from "@mui/material";
+import LinkMui from "@mui/material/Link"
 import ProfileButton from './profileButton.js';
 import AddButton from './addButton.js';
-import { Outlet } from "react-router-dom";
-import { UserContext } from '../../App';
+import { Outlet, Link } from "react-router-dom";
 
 
 const ButtonAppBar = () => {
-    const { isLoggedIn } = useContext(UserContext);
-
     return (
-        <Box sx={{ flexGrow: 1 }} >
-            <AppBar position="static" >
+        <div >
+            <AppBar position='sticky' >
                 <Toolbar >
-                    {isLoggedIn === true && <AddButton /> }
-                    <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-                        Project-Invest
-                    </Typography>
+                    <AddButton />
+                    <Box display='flex-row' flexGrow={1}>
+                        <Link to='/' >
+                            <LinkMui component='button' underline='none' variant='h5' sx={{ color: 'white' }} >
+                                Project-Invest
+                            </LinkMui>
+                        </Link>
+                    </Box>
                     <ProfileButton />
                 </Toolbar>
             </AppBar>
             <br />
             <Outlet />
-        </Box>
+        </div>
     );
 }
 

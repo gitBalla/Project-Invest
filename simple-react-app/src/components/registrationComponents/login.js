@@ -3,6 +3,7 @@ import { Button, List, ListItem, Paper, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
 import jwt from 'jwt-decode';
+import { GetApi } from '../utilityComponents/currentAPI';
 
 const Login = () => {
   const [username, setUsername] = React.useState('');
@@ -17,7 +18,7 @@ const Login = () => {
 
     console.log(username, password);
 
-    await fetch('https://devfund-api.azurewebsites.net/api/users/login', {
+    await fetch(GetApi('users/login'), {
       method: 'POST',
       crossDomain: true,
       headers: {
@@ -34,9 +35,7 @@ const Login = () => {
       .then((data) => {
         if (data.error) {
           alert(data.error);
-        }
-        console.log(data);
-        if (data.data) {
+        } else if (data.data) {
           // Store JWT token in cookie session data
           document.cookie = `token=${data.data}`;
           const userJWT = jwt(document.cookie);
@@ -46,6 +45,7 @@ const Login = () => {
           setIsLoggedIn(true);
           navigate('/');
         }
+        console.log(data);
       });
   };
 

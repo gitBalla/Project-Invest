@@ -11,6 +11,7 @@ import {
 import { CircularProgress } from '@mui/material';
 import { UserContext } from '../../App';
 import useFetch from 'react-fetch-hook';
+import { GetApi } from '../utilityComponents/currentAPI';
 
 const Settings = () => {
   const { user } = useContext(UserContext);
@@ -25,7 +26,7 @@ const Settings = () => {
   const handleSubmit = async (e) => {
     console.log(firstName, lastName, user, password, developer, investor);
     setEditDisabled(true);
-    await fetch('https://devfund-api.azurewebsites.net/api/users', {
+    await fetch(GetApi('users'), {
       method: 'PUT',
       crossDomain: true,
       headers: {
@@ -61,9 +62,7 @@ const Settings = () => {
     setEditDisabled(false);
   };
 
-  const registration = useFetch(
-    `https://devfund-api.azurewebsites.net/api/users/${user}`
-  );
+  const registration = useFetch(GetApi(`users/${user}`));
 
   // Check if user exists by seeing if all users were returned
   if (Array.isArray(registration.data)) {
@@ -139,19 +138,25 @@ const Settings = () => {
             <ListItem>
               <FormControlLabel
                 disabled={editDisabled}
-                control={<Checkbox />}
+                control={
+                  <Checkbox
+                    defaultChecked={registration.data.developer}
+                    onChange={(e) => setDeveloper(e.target.checked)}
+                  />
+                }
                 label="Developer"
-                checked={registration.data.developer}
-                onChange={(e) => setDeveloper(e.target.checked)}
               />
             </ListItem>
             <ListItem>
               <FormControlLabel
                 disabled={editDisabled}
-                control={<Checkbox />}
+                control={
+                  <Checkbox
+                    defaultChecked={registration.data.investor}
+                    onChange={(e) => setInvestor(e.target.checked)}
+                  />
+                }
                 label="Investor"
-                checked={registration.data.investor}
-                onChange={(e) => setInvestor(e.target.checked)}
               />
             </ListItem>
             <ListItem>

@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
+import { UserContext } from '../../App';
 
 
 const AddButton = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const { isLoggedIn } = useContext(UserContext);
   
         const handleMenuOpen = (event) => {
             setAnchorEl(event.currentTarget);
@@ -23,6 +25,7 @@ const AddButton = () => {
                 aria-haspopup ="true"
                 onClick={handleMenuOpen}
                 color="inherit"
+                disabled={!isLoggedIn}
               >
                 <AddIcon />
               </IconButton>
