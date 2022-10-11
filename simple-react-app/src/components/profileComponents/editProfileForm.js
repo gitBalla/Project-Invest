@@ -8,13 +8,19 @@ import {
   Divider,
 } from "@mui/material";
 import { Container } from "@mui/system";
-import { useNavigate, useLocation } from "react-router-dom";
-import React from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../App";
+import React, { useContext } from "react";
+import { GetProfile } from "../utilityComponents/user";
 
 function EditProfileForm() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { currentUser } = location.state;
+
+  const { user } = useContext(UserContext);
+  //take the context user (from user namespace) and get the profile details from api
+  const userProfile = GetProfile(user);
+  
+  console.log(userProfile.data.displayName);
 
   const [displayName, setDisplayName] = React.useState('');
   const [gitHub, setGitHub] = React.useState('');
@@ -65,7 +71,7 @@ function EditProfileForm() {
               <TextField
                 required
                 label="Display Name"
-                defaultValue={currentUser.data.displayName} // Take current first name
+                defaultValue={userProfile.data.displayName}
                 variant="filled"
                 margin="normal"
                 fullWidth
@@ -75,7 +81,7 @@ function EditProfileForm() {
             <ListItem>
               <TextField
                 label="GitHub"
-                defaultValue={currentUser.data.github.trim()} // Take current github link
+                defaultValue={userProfile.data.github.trim()}
                 variant="filled"
                 margin="normal"
                 fullWidth
@@ -85,7 +91,7 @@ function EditProfileForm() {
             <ListItem>
               <TextField
                 label="Contact Email"
-                defaultValue={currentUser.data.email.trim()} // Take current github link
+                defaultValue={userProfile.data.email.trim()}
                 variant="filled"
                 margin="normal"
                 fullWidth
@@ -95,7 +101,7 @@ function EditProfileForm() {
             <ListItem>
               <TextField
                 label="Profile Description"
-                defaultValue={currentUser.data.description.trim()}
+                defaultValue={userProfile.data.description.trim()}
                 multiline
                 variant="filled"
                 margin="normal"
@@ -107,7 +113,7 @@ function EditProfileForm() {
               <TextField
                 select
                 label="Profile Status"
-                defaultValue={currentUser.data.status}
+                defaultValue={userProfile.data.status}
                 SelectProps={{
                   native: true,
                 }}

@@ -67,7 +67,7 @@ const Profile = (props) => {
           <IconButton>
             <Icon component={Email} fontSize="large" />
           </IconButton>
-          <Link to="/editProfileForm" state={{userProfile: userProfile}}>
+          <Link to="/editProfileForm">
             <IconButton>
               <Icon component={ModeEdit} fontSize="large" />
             </IconButton>
