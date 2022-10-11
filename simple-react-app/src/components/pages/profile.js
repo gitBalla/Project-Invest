@@ -18,9 +18,16 @@ import useFetch from "react-fetch-hook";
 const Profile = (props) => {
   const { user } = useContext(UserContext);
   const currentUser = useFetch(
-    `https://devfund-api.azurewebsites.net/api/profiles/${user}` //http://localhost:1337/api/profiles & https://devfund-api.azurewebsites.net/api/profiles
+    `http://localhost:1337/api/profiles/${user}` //http://localhost:1337/api/profiles & https://devfund-api.azurewebsites.net/api/profiles
   )
 
+  if (Array.isArray(currentUser.data)) {
+    return (
+      <div>
+        <h1>404: User not found</h1>
+      </div>
+    );
+  }
   if (currentUser.error) {
     return (
       <div>
@@ -56,7 +63,7 @@ const Profile = (props) => {
           </IconButton>
           <Stack direction="column">
             <Avatar sx={{ width: 96, height: 96 }} />
-            <Typography>{currentUser.data.username}</Typography>
+            <Typography>{currentUser.data.displayName}</Typography>
           </Stack>
           <IconButton>
             <Icon component={Email} fontSize="large" />

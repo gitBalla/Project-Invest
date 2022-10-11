@@ -20,4 +20,22 @@ router.get('/:username', async (req, res) => {
   }
 });
 
+// Update profile
+router.put('/', async (req, res) => {
+  try {
+    const profile = {
+      username: req.body.username,
+      displayName: req.body.username,
+      profileImage: req.body.profileImage,
+      description: req.profile.description,
+      github: req.profile.github,
+      email: req.profile.email,
+      status: req.profile.status,
+    };
+    await Profile.findOneAndUpdate({ username: req.body.username }, profile);
+  } catch (e) {
+    res.send({ error: e });
+  }
+});
+
 module.exports = router;

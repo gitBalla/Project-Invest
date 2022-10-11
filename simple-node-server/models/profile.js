@@ -9,6 +9,7 @@ const ProfileSchema = new Schema({
   description: { type: String, required: true },
   github: { type: String, required: true },
   email: { type: String, required: true },
+  status: { type: String, required: true },
 });
 
 // Export model
