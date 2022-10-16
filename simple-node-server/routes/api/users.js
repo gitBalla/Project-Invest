@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
       profileImage: ' ',
       description: ' ',
       github: ' ',
-      email: '',
+      email: ' ',
       status: 'Public',
     });
     const userExist = await User.find({ username: req.body.username });
