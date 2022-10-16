@@ -6,6 +6,7 @@ import {
   Button,
   Typography,
   Divider,
+  CircularProgress,
 } from "@mui/material";
 import { Container } from "@mui/system";
 import { useNavigate } from "react-router-dom";
@@ -15,12 +16,11 @@ import { GetProfile } from "../utilityComponents/user";
 
 function EditProfileForm() {
   const navigate = useNavigate();
+  const [editDisabled, setEditDisabled] = React.useState(true);
 
   const { user } = useContext(UserContext);
   //take the context user (from user namespace) and get the profile details from api
   const userProfile = GetProfile(user);
-  
-  console.log(userProfile.data.displayName);
 
   const [displayName, setDisplayName] = React.useState('');
   const [gitHub, setGitHub] = React.useState('');
@@ -28,9 +28,41 @@ function EditProfileForm() {
   const [description, setDescription] = React.useState('');
   const [status, setStatus] = React.useState('');
 
+  if (Array.isArray(userProfile.data)) {
+    return (
+      <div>
+        <h1>404: User not found</h1>
+      </div>
+    );
+  }
+  if (userProfile.error) {
+    return (
+      <div>
+        <p>Error: {userProfile.error.name}</p>
+        <p>Message: {userProfile.error.message}</p>
+        <br />
+        <p>Stack: {userProfile.error.stack}</p>
+      </div>
+    );
+  }
+  if (userProfile.isLoading) {
+  return <CircularProgress color="inherit" />;
+  }
+
+  const editDetails = () => {
+    // Set initial values
+    setDisplayName(userProfile.data.displayName);
+    setGitHub(userProfile.data.gitHub);
+    setEmail(userProfile.data.email);
+    setDescription(userProfile.data.description);
+    setStatus(userProfile.data.status);
+    setEditDisabled(false);
+  };
+
   // Submit button handling needed!!
   const handleSubmit = async (e) => {
     console.log(displayName, gitHub, email, description, status);
+    setEditDisabled(true);
     await fetch('http://localhost:1337/api/profiles/', {
       method: 'PUT',
       crossDomain: true,
@@ -40,7 +72,9 @@ function EditProfileForm() {
         'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify({
+        username: userProfile.data.username,
         displayName: displayName,
+        profileImage: userProfile.data.profileImage,
         gitHub: gitHub,
         email: email,
         description: description,
@@ -71,6 +105,7 @@ function EditProfileForm() {
               <TextField
                 required
                 label="Display Name"
+                disabled={editDisabled}
                 defaultValue={userProfile.data.displayName}
                 variant="filled"
                 margin="normal"
@@ -81,6 +116,7 @@ function EditProfileForm() {
             <ListItem>
               <TextField
                 label="GitHub"
+                disabled={editDisabled}
                 defaultValue={userProfile.data.github.trim()}
                 variant="filled"
                 margin="normal"
@@ -91,6 +127,7 @@ function EditProfileForm() {
             <ListItem>
               <TextField
                 label="Contact Email"
+                disabled={editDisabled}
                 defaultValue={userProfile.data.email.trim()}
                 variant="filled"
                 margin="normal"
@@ -101,6 +138,7 @@ function EditProfileForm() {
             <ListItem>
               <TextField
                 label="Profile Description"
+                disabled={editDisabled}
                 defaultValue={userProfile.data.description.trim()}
                 multiline
                 variant="filled"
@@ -113,6 +151,7 @@ function EditProfileForm() {
               <TextField
                 select
                 label="Profile Status"
+                disabled={editDisabled}
                 defaultValue={userProfile.data.status}
                 SelectProps={{
                   native: true,
@@ -128,7 +167,10 @@ function EditProfileForm() {
               </TextField>
             </ListItem>
             <ListItem>
-              <Button variant="contained" type="submit">
+              <Button onClick={editDetails} variant="contained">
+                Edit
+              </Button>
+              <Button disabled={editDisabled} variant="contained" type="submit">
                 Submit
               </Button>
               <Divider orientation="vertical"/>
