@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 import React, { useContext } from "react";
 import { GetProfile } from "../utilityComponents/user";
+import { GetApi } from '../utilityComponents/currentAPI';
 
 function EditProfileForm() {
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ function EditProfileForm() {
   const handleSubmit = async (e) => {
     console.log(displayName, gitHub, email, description, status);
     setEditDisabled(true);
-    await fetch('http://localhost:1337/api/profiles/', {
+    await fetch(GetApi('profiles'), {
       method: 'PUT',
       crossDomain: true,
       headers: {
@@ -75,9 +76,9 @@ function EditProfileForm() {
         username: userProfile.data.username,
         displayName: displayName,
         profileImage: userProfile.data.profileImage,
-        gitHub: gitHub,
-        email: email,
         description: description,
+        github: gitHub,
+        email: email,
         status: status,
       }),
     })
@@ -88,10 +89,9 @@ function EditProfileForm() {
         }
         console.log(data);
       });
-    navigate("/profile");
   };
 
-  const handleCancel = async (e) => {
+  const handleExit = async (e) => {
     navigate("/profile");
   }
 
@@ -99,7 +99,7 @@ function EditProfileForm() {
     <Container>
       <Typography variant="h4">Edit Profile</Typography>
       <Paper elevation={3} sx={{ width: 1000, margin: "auto" }}>
-        <form onSubmit={handleSubmit} onReset={handleCancel}>
+        <form onSubmit={handleSubmit} onReset={handleExit}>
           <List>
             <ListItem>
               <TextField
@@ -167,7 +167,7 @@ function EditProfileForm() {
               </TextField>
             </ListItem>
             <ListItem>
-              <Button onClick={editDetails} variant="contained">
+              <Button onClick={editDetails} disabled={!editDisabled} variant="contained">
                 Edit
               </Button>
               <Button disabled={editDisabled} variant="contained" type="submit">
@@ -175,7 +175,7 @@ function EditProfileForm() {
               </Button>
               <Divider orientation="vertical"/>
               <Button variant="contained" type="reset">
-                Cancel
+                Exit
               </Button>
             </ListItem>
           </List>

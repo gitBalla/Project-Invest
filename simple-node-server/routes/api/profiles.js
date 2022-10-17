@@ -25,12 +25,12 @@ router.put('/', async (req, res) => {
   try {
     const profile = {
       username: req.body.username,
-      displayName: req.body.username,
+      displayName: req.body.displayName,
       profileImage: req.body.profileImage,
-      description: req.profile.description,
-      github: req.profile.github,
-      email: req.profile.email,
-      status: req.profile.status,
+      description: req.body.description,
+      github: req.body.github,
+      email: req.body.email,
+      status: req.body.status,
     };
     await Profile.findOneAndUpdate({ username: req.body.username }, profile);
   } catch (e) {

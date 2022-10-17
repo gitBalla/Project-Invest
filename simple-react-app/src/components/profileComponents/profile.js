@@ -55,12 +55,12 @@ const Profile = (props) => {
           </IconButton>
           <IconButton
             variant="link"
-            href="https://github.com/"
+            href={userProfile.data.github}
             target="_blank"
           >
             <Icon component={GitHub} fontSize="large" />
           </IconButton>
-          <Stack direction="column">
+          <Stack direction="column" alignItems="center">
             <Avatar sx={{ width: 96, height: 96 }} />
             <Typography>{userProfile.data.displayName}</Typography>
           </Stack>
@@ -76,21 +76,20 @@ const Profile = (props) => {
 
         <Grid alignItems="stretch">
           <Divider flexItem>Description</Divider>
-          <Stack direction="row" spacing={5} alignItems="center">
+          <Stack direction="column" spacing={5}>
             <Typography>
-              This section will hold the personal description written by each
-              user it is not a required field to have an account.
+              {userProfile.data.description}
             </Typography>
           </Stack>
           <Divider flexItem>Active Projects</Divider>
-          <Stack direction="row" spacing={5} alignItems="center">
+          <Stack direction="column" spacing={5}>
             <Typography>
               This section will hold any active projects the user is a part of
               whether they are investing or developing.
             </Typography>
           </Stack>
           <Divider flexItem>Completed Projects</Divider>
-          <Stack direction="row" spacing={5} alignItems="center">
+          <Stack direction="column" spacing={5}>
             <Typography>
               This section will hold any active projects the user is a part of
               whether they are investing or developing.
