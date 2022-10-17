@@ -62,7 +62,6 @@ function EditProfileForm() {
 
   // Submit button handling needed!!
   const handleSubmit = async (e) => {
-    console.log(displayName, gitHub, email, description, status);
     setEditDisabled(true);
     await fetch(GetApi('profiles'), {
       method: 'PUT',
@@ -161,7 +160,6 @@ function EditProfileForm() {
                 sx={{ width: "25ch" }}
                 onChange={(e) => setStatus(e.target.value)}
               >
-                <option> </option>
                 <option> Public </option>
                 <option> Private </option>
               </TextField>

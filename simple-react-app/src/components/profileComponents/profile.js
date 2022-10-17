@@ -41,6 +41,8 @@ const Profile = (props) => {
   return <CircularProgress color="inherit" />;
   }
 
+  const emailAddress = "mailto: " + userProfile.data.email;
+
   return (
     <Container maxWidth="md">
       <Grid justifyContent="center" container padding={1} spacing={2}>
@@ -64,7 +66,7 @@ const Profile = (props) => {
             <Avatar sx={{ width: 96, height: 96 }} />
             <Typography>{userProfile.data.displayName}</Typography>
           </Stack>
-          <IconButton>
+          <IconButton href={emailAddress}>
             <Icon component={Email} fontSize="large" />
           </IconButton>
           <Link to="/editProfileForm">
