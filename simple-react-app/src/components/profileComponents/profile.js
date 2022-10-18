@@ -63,7 +63,7 @@ const Profile = (props) => {
             <Icon component={GitHub} fontSize="large" />
           </IconButton>
           <Stack direction="column" alignItems="center">
-            <Avatar sx={{ width: 96, height: 96 }} />
+            <Avatar src={userProfile.data.profileImage} sx={{ width: 96, height: 96 }} />
             <Typography>{userProfile.data.displayName}</Typography>
           </Stack>
           <IconButton href={emailAddress}>

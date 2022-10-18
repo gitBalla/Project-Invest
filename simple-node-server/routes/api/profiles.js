@@ -3,6 +3,8 @@ const Profile = require('../../models/profile');
 
 const router = express.Router();
 
+// Check for valid email, check for valid github
+
 // get all Profiles
 router.get('/', async (req, res) => {
   const projects = await Profile.find();

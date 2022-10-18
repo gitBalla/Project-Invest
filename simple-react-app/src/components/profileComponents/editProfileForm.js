@@ -25,6 +25,7 @@ function EditProfileForm() {
 
   const [displayName, setDisplayName] = React.useState('');
   const [gitHub, setGitHub] = React.useState('');
+  const [profileImage, setProfileImage] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [status, setStatus] = React.useState('');
@@ -54,6 +55,7 @@ function EditProfileForm() {
     // Set initial values
     setDisplayName(userProfile.data.displayName);
     setGitHub(userProfile.data.gitHub);
+    setProfileImage(userProfile.data.profileImage);
     setEmail(userProfile.data.email);
     setDescription(userProfile.data.description);
     setStatus(userProfile.data.status);
@@ -74,7 +76,7 @@ function EditProfileForm() {
       body: JSON.stringify({
         username: userProfile.data.username,
         displayName: displayName,
-        profileImage: userProfile.data.profileImage,
+        profileImage: profileImage,
         description: description,
         github: gitHub,
         email: email,
@@ -121,6 +123,17 @@ function EditProfileForm() {
                 margin="normal"
                 fullWidth
                 onChange={(e) => setGitHub(e.target.value)}
+              />
+            </ListItem>
+            <ListItem>
+              <TextField
+                label="Imgur URI"
+                disabled={editDisabled}
+                defaultValue={userProfile.data.profileImage.trim()}
+                variant="filled"
+                margin="normal"
+                fullWidth
+                onChange={(e) => setProfileImage(e.target.value)}
               />
             </ListItem>
             <ListItem>
