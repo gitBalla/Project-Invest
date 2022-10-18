@@ -127,7 +127,7 @@ function EditProfileForm() {
             </ListItem>
             <ListItem>
               <TextField
-                label="Imgur URI"
+                label="Profile Image - Imgur URI"
                 disabled={editDisabled}
                 defaultValue={userProfile.data.profileImage.trim()}
                 variant="filled"

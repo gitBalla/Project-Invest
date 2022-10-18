@@ -76,7 +76,7 @@ const Profile = (props) => {
           </Link>
         </Stack>
 
-        <Grid alignItems="stretch">
+        <Grid alignItems="stretch" paddingTop={3}>
           <Divider flexItem>Description</Divider>
           <Stack direction="column" spacing={5}>
             <Typography>
