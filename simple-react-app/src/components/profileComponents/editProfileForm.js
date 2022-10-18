@@ -54,7 +54,7 @@ function EditProfileForm() {
   const editDetails = () => {
     // Set initial values
     setDisplayName(userProfile.data.displayName);
-    setGitHub(userProfile.data.gitHub);
+    setGitHub(userProfile.data.github);
     setProfileImage(userProfile.data.profileImage);
     setEmail(userProfile.data.email);
     setDescription(userProfile.data.description);
