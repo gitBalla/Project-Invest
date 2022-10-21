@@ -40,7 +40,7 @@ const ProjectForm = () => {
       .then((res) => res.json())
       .then((data) => {console.log(data);});
 
-    navigate('/');
+    navigate('/Dashboard');
   };
 
   return (

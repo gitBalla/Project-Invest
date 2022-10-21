@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, Box } from "@mui/material";
 import LinkMui from "@mui/material/Link"
 import ProfileButton from './profileButton.js';
@@ -7,6 +7,21 @@ import { Outlet, Link } from "react-router-dom";
 
 
 const ButtonAppBar = () => {
+    const [setWindowWidth] = useState(window.innerWidth);
+    //const imageUrl = windowWidth >= 650 ? desktopImage : mobileImage;
+
+    useEffect(() => {
+        const handleWindowResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        
+        window.addEventListener('resize', handleWindowResize);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        }
+    },);
+
     return (
         <div >
             <AppBar position='sticky' >
