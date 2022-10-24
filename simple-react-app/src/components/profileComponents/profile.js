@@ -117,23 +117,9 @@ const Profile = (props) => {
           </Stack>
           <Divider flexItem>Users Projects</Divider>
           <Stack direction="column" spacing={5}>
-<<<<<<< HEAD
             <DashboardList projects={projects.data.filter(
               (item) => item.username === userProfile.data.username
             )} />
-=======
-            <Typography>
-              This section will hold any projects the user is a part of
-              whether they are investing or developing.
-            </Typography>
-          </Stack>
-          <Divider flexItem>Bookmarked Projects</Divider>
-          <Stack direction="column" spacing={5}>
-            <Typography>
-              This section will hold any bookmarked projects the user is interested in
-              whether they are investing or developing.
-            </Typography>
->>>>>>> Development-Profile
           </Stack>
         </Grid>
       </Grid>
