@@ -31,10 +31,26 @@ router.post('/', async (req, res) => {
       description: req.body.description,
       dateCreated: new Date(),
     });
+    // Make owner a contributor
+    project.contributorList.push(req.body.username);
     await project.save();
     res.send(project);
   } catch (e) {
     res.send({ error: 'Failure when making POST to project' });
+  }
+});
+
+// Add user to applicants
+router.put('/applicant', async (req, res) => {
+  try {
+    // Find project by id and push user to applicants array
+    const project = await Project.findOneAndUpdate(
+      { id: '63384fa43c0d4bddb806a4f3' },
+      { $push: { applicantList: req.body.username } }
+    );
+    res.send(project);
+  } catch (e) {
+    res.send({ error: e });
   }
 });
 
