@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import './dashboard.css';
-import { Box, CircularProgress, Tab, Tabs, Typography } from '@mui/material';
+import { Box, CircularProgress, Tab, Tabs, TextField, Typography } from '@mui/material';
 import DashboardList from './dashboardList';
 import useFetch from 'react-fetch-hook';
 import { GetApi } from '../utilityComponents/currentAPI';
@@ -11,6 +11,7 @@ function Dashboard() {
   const { isLoggedIn, user } = useContext(UserContext);
   const projects = useFetch(GetApi('projects'));
   const [value, setValue] = React.useState(0);
+  const [searchName, setSearchName] = React.useState('');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -31,10 +32,16 @@ function Dashboard() {
     return <CircularProgress color="inherit" />;
   }
 
+  const onSearchChange = (event) => {
+    setSearchName(event.target.value);
+  }
+
   // Displays the resulting projects if successful/done loading
   return (
     <div>
       <h3>Project Dashboard</h3>
+      <br />
+      <TextField id="searchBar" label="Search Projects" sx={{ width: 600 }} onChange={onSearchChange}/>
       <br />
         <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
           <Tabs value={value} onChange={handleChange} centered>
@@ -43,12 +50,17 @@ function Dashboard() {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <DashboardList projects={projects.data} />
+          <DashboardList projects={projects.data.filter(
+            (item) => item.name.toLowerCase().includes(searchName.toLowerCase()) 
+            || item.username.toLowerCase().includes(searchName.toLowerCase()) 
+            || item.category.toLowerCase().includes(searchName.toLowerCase())
+            )} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           {isLoggedIn === true && (
           <DashboardList projects={projects.data.filter(
-            (item) => item.username === user
+            (item) => (item.username === user && item.name.toLowerCase().includes(searchName.toLowerCase()))
+            || (item.username === user && item.category.toLowerCase().includes(searchName.toLowerCase())) 
             )} />
           )}
           {isLoggedIn === false && (
