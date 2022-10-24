@@ -94,6 +94,16 @@ router.post('/login', async (req, res) => {
   return res.send({ status: 'error', error: 'Incorrect Password' });
 });
 
+// Delete user
+router.delete('/:username', async (req, res) => {
+  try {
+    await User.deleteOne({ username: req.params.username });
+    res.send({ status: 'ok' });
+  } catch (e) {
+    res.send({ error: e });
+  }
+});
+
 // router.post('/userDetails', async (req, res) => {
 //   const { token } = req.body;
 //   try {
