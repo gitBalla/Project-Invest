@@ -67,7 +67,6 @@ function LandingPage() {
                 </Grid>
                 <Grid container columns={{ xs: 5, md: 10}} padding={2} backgroundColor="coral" >
                     <Grid xs={5} padding='50px'>
-                        <h3>Recent Projects</h3>
                         {/**columns refers to how many cards will fit on the screen in each view size */}
                         <Grid container padding={{xs:1}} spacing={{ xs: 1 }} columns={{ xs: 2, sm: 8, md: 2, lg: 8}}>
                             {projects.data.slice(0,4).map((project) => (
