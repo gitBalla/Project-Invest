@@ -4,6 +4,22 @@ const Profile = require('../../models/profile');
 const router = express.Router();
 
 // Check for valid email, check for valid github
+function checkEmail(email) {
+  const re = /^((?!\.)[\w_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm;
+  return re.test(email);
+}
+
+function checkGithub(github) {
+  const re =
+    /^(http(s?):\/\/)?(www\.)?github\.([a-z])+\/([A-Za-z0-9]{1,})+\/?$/i;
+  return re.test(github);
+}
+
+function checkImgurURI(profileImage) {
+  const re =
+    /(?:https?:\/\/)?(?:i\.)?imgur\.com\/(?:gallery\/)?(.+(?=[sbtmlh]\..{3,4})|.+(?=\..{3,4})|.+?(?:(?=\s)|$))/;
+  return re.test(profileImage);
+}
 
 // get all Profiles
 router.get('/', async (req, res) => {
@@ -34,6 +50,18 @@ router.put('/', async (req, res) => {
       email: req.body.email,
       status: req.body.status,
     };
+    if (!checkEmail(req.body.email)) {
+      res.send({ error: 'Invalid Email Address' });
+      return;
+    }
+    if (!checkGithub(req.body.github)) {
+      res.send({ error: 'Invalid Github Link' });
+      return;
+    }
+    if (!checkImgurURI(req.body.profileImage)) {
+      res.send({ error: 'Invalid Imgur link' });
+      return;
+    }
     await Profile.findOneAndUpdate({ username: req.body.username }, profile);
   } catch (e) {
     res.send({ error: e });
