@@ -43,7 +43,7 @@ const Login = () => {
           // Update context
           setUser(userJWT.username);
           setIsLoggedIn(true);
-          navigate('/');
+          navigate('/dashboard');
         }
         console.log(data);
       });

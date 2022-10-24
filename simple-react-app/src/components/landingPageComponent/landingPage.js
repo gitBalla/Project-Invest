@@ -1,21 +1,20 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../App';
-import { Button, CircularProgress, Grid, Typography }  from '@mui/material'
-import { DashboardCard } from '../dashboardComponents/dashboardList'
 import useFetch from 'react-fetch-hook';
+import { DashboardCard } from '../dashboardComponents/dashboardList'
 import { GetApi } from '../utilityComponents/currentAPI';
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Button, CircularProgress, Grid, Typography }  from '@mui/material'
+import { Stack } from '@mui/system';
 import kanbanImage from "./landingPageImage.jpg";
 import profileImage from "./profileImage.png";
-import { Stack } from '@mui/system';
-
 
 function LandingPage() {
     const { isLoggedIn } = useContext(UserContext);
     const navigate = new useNavigate();
 
     //if logged in we should redirect them to the dashboard instead??
-    if (isLoggedIn) { navigate('/Dashboard')}
+    if (isLoggedIn) { navigate('/dashboard')}
 
     //grid layout, sections below
 	return (
