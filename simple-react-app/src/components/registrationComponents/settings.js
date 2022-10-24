@@ -12,10 +12,12 @@ import { CircularProgress } from '@mui/material';
 import { UserContext } from '../../App';
 import useFetch from 'react-fetch-hook';
 import { GetApi } from '../utilityComponents/currentAPI';
+import { useNavigate } from 'react-router-dom';
 
 const Settings = () => {
   const { user } = useContext(UserContext);
   const [editDisabled, setEditDisabled] = React.useState(true);
+  const { setUser, setIsLoggedIn } = useContext(UserContext);
 
   const [password, setPassword] = React.useState('');
   const [firstName, setFirstName] = React.useState('');
@@ -60,6 +62,39 @@ const Settings = () => {
     setDeveloper(registration.data.developer);
     setInvestor(registration.data.investor);
     setEditDisabled(false);
+  };
+
+  const navigate = useNavigate();
+
+  const handleExit = () => {
+    navigate('/');
+  };
+
+  const handleDelete = async (e) => {
+    // TODO: confirmation/warning dialog
+    await fetch(GetApi(`users/${user}`), {
+      method: 'DELETE',
+      crossDomain: true,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          alert(data.error);
+        }
+        console.log(data);
+        // Remove user contexts
+        setUser('');
+        setIsLoggedIn(false);
+        // Set cookie to expiry
+        document.cookie =
+          'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        navigate('/login');
+      });
   };
 
   const registration = useFetch(GetApi(`users/${user}`));
@@ -169,6 +204,16 @@ const Settings = () => {
                 variant="contained"
               >
                 Apply
+              </Button>
+              <Button variant="contained" onClick={handleExit}>
+                Exit
+              </Button>
+              <Button
+                style={{ backgroundColor: '#e65045' }}
+                variant="contained"
+                onClick={handleDelete}
+              >
+                Delete Account
               </Button>
             </ListItem>
           </List>
