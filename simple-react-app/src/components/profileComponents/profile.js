@@ -63,7 +63,7 @@ const Profile = (props) => {
             <Icon component={GitHub} fontSize="large" />
           </IconButton>
           <Stack direction="column" alignItems="center">
-            <Avatar src={userProfile.data.profileImage} sx={{ width: 96, height: 96 }} />
+            <Avatar alt={userProfile.data.displayName.toUpperCase()} src={userProfile.data.profileImage} sx={{ width: 112, height: 112 }} />
             <Typography>{userProfile.data.displayName}</Typography>
           </Stack>
           <IconButton href={emailAddress}>
@@ -83,17 +83,17 @@ const Profile = (props) => {
               {userProfile.data.description}
             </Typography>
           </Stack>
-          <Divider flexItem>Active Projects</Divider>
+          <Divider flexItem>Users Projects</Divider>
           <Stack direction="column" spacing={5}>
             <Typography>
-              This section will hold any active projects the user is a part of
+              This section will hold any projects the user is a part of
               whether they are investing or developing.
             </Typography>
           </Stack>
-          <Divider flexItem>Completed Projects</Divider>
+          <Divider flexItem>Bookmarked Projects</Divider>
           <Stack direction="column" spacing={5}>
             <Typography>
-              This section will hold any active projects the user is a part of
+              This section will hold any bookmarked projects the user is interested in
               whether they are investing or developing.
             </Typography>
           </Stack>

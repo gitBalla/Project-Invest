@@ -100,7 +100,7 @@ function EditProfileForm() {
     <Container>
       <Typography variant="h4">Edit Profile</Typography>
       <Paper elevation={3} sx={{ width: 1000, margin: "auto" }}>
-        <form onSubmit={handleSubmit} onReset={handleExit}>
+        <form onSubmit={handleSubmit}>
           <List>
             <ListItem>
               <TextField
@@ -185,7 +185,7 @@ function EditProfileForm() {
                 Submit
               </Button>
               <Divider orientation="vertical"/>
-              <Button variant="contained" type="reset">
+              <Button variant="contained" onClick={handleExit}>
                 Exit
               </Button>
             </ListItem>
