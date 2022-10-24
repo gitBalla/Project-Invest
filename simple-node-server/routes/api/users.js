@@ -98,6 +98,7 @@ router.post('/login', async (req, res) => {
 router.delete('/:username', async (req, res) => {
   try {
     await User.deleteOne({ username: req.params.username });
+    await Profile.deleteOne({ username: req.params.username });
     res.send({ status: 'ok' });
   } catch (e) {
     res.send({ error: e });
