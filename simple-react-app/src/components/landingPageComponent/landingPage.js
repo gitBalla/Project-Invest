@@ -20,28 +20,28 @@ function LandingPage() {
 	return (
         <div>
             <Grid container columns={{ xs: 5, md: 10}} padding={2}>
-                <Grid xs={5} padding='50px'>
+                <Grid item xs={5} padding='50px'>
                     <WelcomeSection />
                 </Grid>
-                <Grid xs={5} padding='50px' >
+                <Grid item xs={5} padding='50px' >
                     <WelcomeImage />
                 </Grid>
             </Grid>
 
             <Grid container columns={{ xs: 5, md: 10}} padding={2} backgroundColor="coral" >
-                <Grid xs={5} padding='50px'>
+                <Grid item xs={5} padding='50px'>
                     <ProjectsSample />
                 </Grid>
-                <Grid xs={5} padding='50px'>
+                <Grid item xs={5} padding='50px'>
                     <ProjectsSection />
                 </Grid>
             </Grid>
 
             <Grid container columns={{ xs: 5, md: 10}} padding={2}>
-                <Grid xs={5} padding='50px'>
+                <Grid item xs={5} padding='50px'>
                     <ProfileSection />
                 </Grid>
-                <Grid xs={5} padding='50px'>
+                <Grid item xs={5} padding='50px'>
                     <ProfileImage />
                 </Grid>
             </Grid>
