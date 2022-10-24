@@ -9,6 +9,8 @@ const ProjectSchema = new Schema({
   category: { type: String, required: true },
   description: { type: String, required: true },
   dateCreated: { type: Date, required: true },
+  applicantList: { type: Array, required: true },
+  contributorList: { type: Array, required: true },
 });
 
 // Export model

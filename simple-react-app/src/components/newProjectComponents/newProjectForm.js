@@ -35,6 +35,8 @@ const ProjectForm = () => {
         image: 'assets/images/logo192.png',
         category: projectCategory,
         description: projectDescription,
+        applicantList: [],
+        contributorList: [user],
       }),
     })
       .then((res) => res.json())
