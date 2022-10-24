@@ -52,7 +52,7 @@ const ProfileButton = () => {
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
       >
-        <Link to="/">
+        <Link to="/dashboard">
           <MenuItem role="dashboardMenuItem" onClick={handleMenuClose}>Dashboard</MenuItem>
         </Link>
         {isLoggedIn === true && (
@@ -61,10 +61,10 @@ const ProfileButton = () => {
               <MenuItem role="profileMenuItem" onClick={handleMenuClose}>My Profile</MenuItem>
             </Link>
             <Link to="/myApplications">
-              <MenuItem onClick={handleMenuClose}>My Applications</MenuItem>
+              <MenuItem role="myApplicationsMenuItem" onClick={handleMenuClose}>My Applications</MenuItem>
             </Link>
             <Link to="/myProjects">
-              <MenuItem onClick={handleMenuClose}>My Projects</MenuItem>
+              <MenuItem role="myProjectsMenuItem" onClick={handleMenuClose}>My Projects</MenuItem>
             </Link>
             <Link to="/settings">
               <MenuItem role="settingsMenuItem" onClick={handleMenuClose}>Settings</MenuItem>
