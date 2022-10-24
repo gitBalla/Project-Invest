@@ -12,6 +12,7 @@ import { CircularProgress } from '@mui/material';
 import { UserContext } from '../../App';
 import useFetch from 'react-fetch-hook';
 import { GetApi } from '../utilityComponents/currentAPI';
+import { useNavigate } from 'react-router-dom';
 
 const Settings = () => {
   const { user } = useContext(UserContext);
@@ -60,6 +61,12 @@ const Settings = () => {
     setDeveloper(registration.data.developer);
     setInvestor(registration.data.investor);
     setEditDisabled(false);
+  };
+
+  const navigate = useNavigate();
+
+  const handleExit = () => {
+    navigate('/');
   };
 
   const registration = useFetch(GetApi(`users/${user}`));
@@ -169,6 +176,9 @@ const Settings = () => {
                 variant="contained"
               >
                 Apply
+              </Button>
+              <Button variant="contained" onClick={handleExit}>
+                Exit
               </Button>
             </ListItem>
           </List>
