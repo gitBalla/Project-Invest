@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
+import jwt from 'jwt-decode';
 import './App.css';
 import Dashboard from './components/dashboardComponents/dashboard.js';
 import AppBar from './components/appBarComponents/appBar.js';
@@ -18,6 +19,20 @@ export const UserContext = React.createContext();
 function App() {
   const [user, setUser] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Check for cookie on refresh/launch and set context
+  useEffect(() => {
+    try {
+      // Grab JWT from cookie
+      const userJWT = jwt(document.cookie);
+      // Update context
+      setUser(userJWT.username);
+      setIsLoggedIn(true);
+    } catch (e) {
+      setUser('');
+      setIsLoggedIn(false);
+    }
+  }, []);
 
   return (
     <UserContext.Provider value={{ user, setUser, isLoggedIn, setIsLoggedIn }}>
