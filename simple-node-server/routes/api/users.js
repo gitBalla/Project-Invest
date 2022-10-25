@@ -105,7 +105,7 @@ router.delete('/:username', async (req, res) => {
       const user = jwt.verify(stringToken, config.secrets.jwt);
       const { username } = user.username;
       // Verify if user from token still exists
-      User.findOne({ username }).catch((e) => {
+      User.findOne({ username }).catch(() => {
         res.send({ status: 'error', error: 'token is not valid' });
       });
       // Check if token user is same as requested user
