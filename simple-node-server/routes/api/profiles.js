@@ -50,15 +50,15 @@ router.put('/', async (req, res) => {
       email: req.body.email,
       status: req.body.status,
     };
-    if (!checkEmail(req.body.email)) {
+    if (!checkEmail(req.body.email) || req.body.email === '') {
       res.send({ error: 'Invalid Email Address' });
       return;
     }
-    if (!checkGithub(req.body.github)) {
+    if (!checkGithub(req.body.github) || req.body.github === '') {
       res.send({ error: 'Invalid Github Link' });
       return;
     }
-    if (!checkImgurURI(req.body.profileImage)) {
+    if (!checkImgurURI(req.body.profileImage) || req.body.profileImage === '') {
       res.send({ error: 'Invalid Imgur link' });
       return;
     }

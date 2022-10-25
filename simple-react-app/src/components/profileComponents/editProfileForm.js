@@ -9,14 +9,13 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { Container } from "@mui/system";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { UserContext } from "../../App";
 import React, { useContext } from "react";
 import { GetProfile } from "../utilityComponents/user";
 import { GetApi } from '../utilityComponents/currentAPI';
 
 function EditProfileForm() {
-  const navigate = useNavigate();
   const [editDisabled, setEditDisabled] = React.useState(true);
 
   const { user } = useContext(UserContext);
@@ -93,10 +92,6 @@ function EditProfileForm() {
         console.log(data);
       });
   };
-
-  const handleExit = async (e) => {
-    navigate("/profile");
-  }
 
   return (
     <Container>
@@ -187,9 +182,11 @@ function EditProfileForm() {
                 Submit
               </Button>
               <Divider orientation="vertical"/>
-              <Button variant="contained" onClick={handleExit}>
-                Exit
-              </Button>
+              <Link to="/profile" state={{ currentUser: user}}>
+                <Button variant="contained">
+                  Exit
+                </Button>
+              </Link>
             </ListItem>
           </List>
         </form>
