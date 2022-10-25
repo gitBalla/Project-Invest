@@ -41,11 +41,11 @@ router.post('/', async (req, res) => {
 });
 
 // Add user to applicants
-router.put('/applicant', async (req, res) => {
+router.put('/', async (req, res) => {
   try {
     // Find project by id and push user to applicants array
     const project = await Project.findOneAndUpdate(
-      { id: '63384fa43c0d4bddb806a4f3' },
+      { id: req.body.id },
       { $push: { applicantList: req.body.username } }
     );
     res.send(project);

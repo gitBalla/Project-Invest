@@ -30,6 +30,10 @@ import { GetProfile } from '../utilityComponents/user';
 import { GetApi } from '../utilityComponents/currentAPI';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Handshake } from '@mui/icons-material';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CancelIcon from '@mui/icons-material/Cancel';
+import ListItemButton from '@mui/material/ListItemButton';
+import IconButton from '@mui/material/IconButton';
 
 function ProjectPage() {
   const location = useLocation();
@@ -41,9 +45,15 @@ function ProjectPage() {
   const [applicantList, setApplicantList] = React.useState(
     currentProject.applicantList
   );
+  const [contributorList, setContributorList] = React.useState(
+    currentProject.contributorList
+  );
+
   const [applyDisabled, setApplyDisabled] = React.useState(true);
 
   const [open, setOpen] = React.useState(false);
+
+  const [visible, setVisible] = React.useState(true);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -52,51 +62,59 @@ function ProjectPage() {
   const handleClose = () => {
     setOpen(false);
   };
-  /*
-    const disableApplyButton = () => {
-        if (isLoggedIn) {
-            if (currentProject.applicantList.includes(userProfile.data.username)) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-        else {
-            return true;
-        }
-    }
-    */
-
-  const zeroApplicantsCheck = () => {
-    if (currentProject.applicantList.length == 1) {
-      if (currentProject.applicantList[0] == '') {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  };
-  /*
-    const userIsOwner = () => {
-        if (currentProject.username === (userProfile.data.username)) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    */
+  
   const applyToProject = () => {
-    //set applicantList as the current Applicant List
     handleClickOpen();
     setApplicantList(currentProject.applicantList);
   };
 
-  const handleApply = async (e) => {
-    handleClose();
-    applicantList.push(userProfile.data.username);
-    setApplicantList(applicantList);
+  const applicantCount = () => {
+      var applicantCount = [];
+      if (currentProject.applicantList.length > 0) {
+        currentProject.applicantList.map((applicant) => {
+          if (applicant.length > 0) {
+            applicantCount.push(applicant);
+          }
+        })
+        return applicantCount.length;
+      }
+      else {
+        return 0;
+      }
+  };
+  /*
+  const contributorCount = () => {
+      var contributorCount = [];
+      if (currentProject.contributorList.length > 0) {
+        currentProject.contributorList.map((contributor) => {
+          if (contributor.length > 0) {
+            contributorCount.push(contributor);
+          }
+        },[])
+        return contributorCount.length;
+      }
+      else {
+        return 0;
+      }
+  };
+  */
+
+  const disableApplyButton = () => {
+    if (isLoggedIn) {
+      if (user === currentProject.username || applicantList.includes(user)) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    else {
+      return true;
+    }
+  };
+
+  const handleApprove = async (e) => {
+    //setApplicantList(applicantList);
     console.log(currentProject.name, user);
     await fetch(GetApi('projects/applicant'), {
       method: 'PUT',
@@ -108,8 +126,136 @@ function ProjectPage() {
       },
       body: JSON.stringify({
         // TODO: Pass in the project id
-        id: '63384fa43c0d4bddb806a4f3',
-        username: user,
+        id: currentProject.id,
+        applicantList: applicantList,
+        contributorList: contributorList,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          alert(data.error);
+        }
+        console.log(data);
+      });
+  };
+
+  const handleReject = async (e) => {
+    //setApplicantList(applicantList);
+    console.log(currentProject.name, user);
+    await fetch(GetApi('projects/applicant'), {
+      method: 'PUT',
+      crossDomain: true,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({
+        // TODO: Pass in the project id
+        id: currentProject.id,
+        applicantList: applicantList,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          alert(data.error);
+        }
+        console.log(data);
+      });
+  };
+
+  const approveApplicant = (index, applicant) => {
+    //remove from applicant list
+    /*
+    if (applicantCount() === 1) {
+      const newAppList = [];
+      setApplicantList(newAppList);
+    }
+    else {
+      const newAppList = applicantList.splice(index,1);
+      setApplicantList(newAppList);
+    }
+    */
+    const newAppList = applicantList.splice(index,1);
+    setApplicantList(newAppList);
+
+    //add to contributor list
+    contributorList.push(applicant);
+    setContributorList(contributorList);
+
+    handleApprove();
+  }
+  
+  const rejectApplicant = (index) => {
+    if (index == 0 && applicantCount() == 1) {
+      applicantList.length = 0;
+      setApplicantList(applicantList);
+    }
+    else {
+      const newAppList = applicantList.splice(index,1);
+      setApplicantList(newAppList);
+    }
+
+    handleReject();
+  };
+  /*
+  const approveApplicant = (index) => {
+    contributorList.push(applicantList[index]);
+    setContributorList(contributorList);
+    
+    //const newAppList = applicantList.filter((_, i) => i !== index);
+    applicantList.splice(index,1);
+    setApplicantList(applicantList);
+    //handleApprove();
+  }
+
+  const rejectApplicant = (index) => {
+    const newAppList = applicantList.filter((_, i) => i !== index);
+    //const index = applicantList.indexOf(rejectedUser);
+    //applicantList.splice(index,1);
+    setApplicantList(newAppList);
+  }
+  
+  const handleApprove = async (e) => {
+    //move user from applicantList to contributorList
+  }
+  */
+
+  /*
+  function checkForUser(arr, usr) {
+    for (int i = 0, i < arr.length, i++) {
+
+    }
+  }
+  */
+
+  
+
+  const handleApply = async (e) => {
+    handleClose();
+    if (applicantCount() === 0) {
+      applicantList[0] = user;
+    }
+    else {
+      applicantList.push(user);
+    }
+    setApplicantList(applicantList);
+    console.log(currentProject.name, user);
+    await fetch(GetApi('projects'), {
+      method: 'PUT',
+      crossDomain: true,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({
+        // TODO: Pass in the project id
+        id: currentProject.id,
+        username: userProfile.data.username,
+        //applicantList: applicantList,
       }),
     })
       .then((res) => res.json())
@@ -145,7 +291,7 @@ function ProjectPage() {
           </Box>
           <Box gridColumn="span 8">
             <Typography style={{ color: 'black' }} variant="body1">
-              {currentProject.description}
+              {currentProject.description}{applicantList}
             </Typography>
           </Box>
           <Box gridColumn="span 4">
@@ -153,9 +299,9 @@ function ProjectPage() {
               <Accordion sx={{ width: '100%' }}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography style={{ color: 'black' }} variant="subtitle1">
-                    <GroupIcon /> {currentProject.contributorList.length}{' '}
+                    <GroupIcon /> {contributorList.length}{' '}
                     Contributor
-                    {currentProject.contributorList.length == 1 ? '' : 's'}
+                    {contributorList.length === 1 ? '' : 's'}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -167,14 +313,23 @@ function ProjectPage() {
               <Accordion sx={{ width: '100%' }}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography style={{ color: 'black' }} variant="subtitle1">
-                    <EmojiPeopleIcon /> {currentProject.applicantList.length}{' '}
-                    Applicant
-                    {currentProject.applicantList.length == 1 ? '' : 's'}
+                    <EmojiPeopleIcon /> {applicantCount()}{' '}
+                    Applicant 
+                    {applicantCount() === 1 ? '' : 's'}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  {currentProject.applicantList.map((applicant) => {
-                    return <ListItem>{applicant}</ListItem>;
+                  {applicantCount() === 0 ? "No applicants" : currentProject.applicantList.map((applicant, index) => {
+                    return <ListItem 
+                              secondaryAction={user === currentProject.username ? 
+                                  <div>
+                                    <IconButton edge="end">
+                                    <CheckBoxIcon color="success" onClick={() => {approveApplicant(index, applicant)}}/></IconButton>
+
+                                    <IconButton edge="end">
+                                    <CancelIcon color="error" onClick={() => {rejectApplicant(index)}}/></IconButton>
+                                  </div> : ""}>
+                            {applicant},{index}</ListItem>;
                   })}
                 </AccordionDetails>
               </Accordion>
@@ -184,7 +339,7 @@ function ProjectPage() {
             <Button
               variant="contained"
               onClick={applyToProject}
-              disabled={!isLoggedIn}
+              disabled={disableApplyButton()}
             >
               Apply
             </Button>
