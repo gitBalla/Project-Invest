@@ -96,11 +96,26 @@ router.post('/login', async (req, res) => {
 
 // Delete user
 router.delete('/:username', async (req, res) => {
+  // Check if token exists
   if (req.body.token.length > 0) {
     try {
-      await User.deleteOne({ username: req.params.username });
-      await Profile.deleteOne({ username: req.params.username });
-      res.send({ status: 'ok' });
+      // remove 'token=' from token string
+      const stringToken = req.body.token.replace('token=', '');
+      // Verify token is valid
+      const user = jwt.verify(stringToken, config.secrets.jwt);
+      const { username } = user.username;
+      // Verify if user from token still exists
+      User.findOne({ username }).catch((e) => {
+        res.send({ status: 'error', error: 'token is not valid' });
+      });
+      // Check if token user is same as requested user
+      if (user.username === req.params.username) {
+        await User.deleteOne({ username: req.params.username });
+        await Profile.deleteOne({ username: req.params.username });
+        res.send({ status: 'ok' });
+      } else {
+        res.send({ error: 'Access not permitted' });
+      }
     } catch (e) {
       res.send({ error: e });
     }
@@ -109,21 +124,21 @@ router.delete('/:username', async (req, res) => {
   }
 });
 
-// router.post('/userDetails', async (req, res) => {
-//   const { token } = req.body;
-//   try {
-//     const user = jwt.verify(token, config.secrets.jwt);
-//     const { username } = user.username;
-//     User.findOne({ username })
-//       .then((data) => {
-//         res.send({ status: 'ok', data });
-//       })
-//       .catch((e) => {
-//         res.send({ status: 'error', data: e });
-//       });
-//   } catch (e) {
-//     res.send({ error: e });
-//   }
-// });
+router.post('/userDetails', async (req, res) => {
+  const { token } = req.body;
+  try {
+    const user = jwt.verify(token, config.secrets.jwt);
+    const { username } = user.username;
+    User.findOne({ username })
+      .then((data) => {
+        res.send({ status: 'ok', data });
+      })
+      .catch((e) => {
+        res.send({ status: 'error', data: e });
+      });
+  } catch (e) {
+    res.send({ error: e });
+  }
+});
 
 module.exports = router;
