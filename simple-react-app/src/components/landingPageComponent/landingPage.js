@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../App';
 import useFetch from 'react-fetch-hook';
 import { DashboardCard } from '../dashboardComponents/dashboardList'
@@ -14,39 +14,45 @@ function LandingPage() {
     const navigate = new useNavigate();
 
     //if logged in we should redirect them to the dashboard instead??
-    if (isLoggedIn) { navigate('/dashboard')}
+    useEffect(() => {
+        if (isLoggedIn) { navigate('/dashboard') }
+    }, );
 
     //grid layout, sections below
 	return (
         <div>
-            <Grid container columns={{ xs: 5, md: 10}} padding={2}>
-                <Grid item xs={5} padding='50px'>
-                    <WelcomeSection />
+            {isLoggedIn === false && (
+            <div>
+                <Grid container columns={{ xs: 5, md: 10}} padding={2}>
+                    <Grid item xs={5} padding='50px'>
+                        <WelcomeSection />
+                    </Grid>
+                    <Grid item xs={5} padding='50px' >
+                        <WelcomeImage />
+                    </Grid>
                 </Grid>
-                <Grid item xs={5} padding='50px' >
-                    <WelcomeImage />
-                </Grid>
-            </Grid>
 
-            <Grid container columns={{ xs: 5, md: 10}} padding={2} backgroundColor="coral" >
-                <Grid item xs={5} padding='50px'>
-                    <ProjectsSample />
+                <Grid container columns={{ xs: 5, md: 10}} padding={2} backgroundColor="coral" >
+                    <Grid item xs={5} padding='50px'>
+                        <ProjectsSample />
+                    </Grid>
+                    <Grid item xs={5} padding='50px'>
+                        <ProjectsSection />
+                    </Grid>
                 </Grid>
-                <Grid item xs={5} padding='50px'>
-                    <ProjectsSection />
-                </Grid>
-            </Grid>
 
-            <Grid container columns={{ xs: 5, md: 10}} padding={2}>
-                <Grid item xs={5} padding='50px'>
-                    <ProfileSection />
+                <Grid container columns={{ xs: 5, md: 10}} padding={2}>
+                    <Grid item xs={5} padding='50px'>
+                        <ProfileSection />
+                    </Grid>
+                    <Grid item xs={5} padding='50px'>
+                        <ProfileImage />
+                    </Grid>
                 </Grid>
-                <Grid item xs={5} padding='50px'>
-                    <ProfileImage />
-                </Grid>
-            </Grid>
 
-            <Outlet />
+                <Outlet />
+            </div>
+        )}
         </div>
         );
     }
