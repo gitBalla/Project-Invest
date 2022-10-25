@@ -30,12 +30,10 @@ function EditProfileForm() {
   const [description, setDescription] = React.useState('');
   const [status, setStatus] = React.useState('');
 
-  if (Array.isArray(userProfile.data)) {
-    return (
-      <div>
-        <h1>404: User not found</h1>
-      </div>
-    );
+  
+  
+  if (userProfile.isLoading) {
+    return <CircularProgress color="inherit" />;
   }
   if (userProfile.error) {
     return (
@@ -47,8 +45,12 @@ function EditProfileForm() {
       </div>
     );
   }
-  if (userProfile.isLoading) {
-  return <CircularProgress color="inherit" />;
+  if (Array.isArray(userProfile.data)) {
+    return (
+      <div>
+        <h1>404: User not found</h1>
+      </div>
+    );
   }
 
   const editDetails = () => {

@@ -25,6 +25,10 @@ const Profile = (props) => {
   const userProfile = GetProfile(user);
 
   // Displays status of get call
+  
+  if (projects.isLoading) {
+    return <CircularProgress color="inherit" />;
+  }
   if (projects.error) {
     return (
       <div>
@@ -35,10 +39,9 @@ const Profile = (props) => {
       </div>
     );
   }
-  if (projects.isLoading) {
+  if (userProfile.isLoading) {
     return <CircularProgress color="inherit" />;
   }
-
   if (Array.isArray(userProfile.data)) {
     return (
       <div>
@@ -56,11 +59,10 @@ const Profile = (props) => {
       </div>
     );
   }
-  if (userProfile.isLoading) {
-  return <CircularProgress color="inherit" />;
-  }
+  
 
   const sameUser = userProfile.data.username === user;
+
   if(userProfile.data.status === 'Private' && !sameUser){
     return (
       <div>

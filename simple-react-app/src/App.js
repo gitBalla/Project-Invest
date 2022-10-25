@@ -5,8 +5,6 @@ import './App.css';
 import Dashboard from './components/dashboardComponents/dashboard.js';
 import AppBar from './components/appBarComponents/appBar.js';
 import Profile from './components/profileComponents/profile.js';
-import MyApplications from './components/myApplicationsComponents/myApplications';
-import MyProjects from './components/myProjectsComponents/myProjects.js';
 import Settings from './components/registrationComponents/settings.js';
 import ProjectForm from './components/newProjectComponents/newProjectForm.js';
 import Signup from './components/registrationComponents/signup.js';
@@ -42,8 +40,6 @@ function App() {
             <Route path="/" element={<AppBar />}>
               <Route index element={<Dashboard />} />
               <Route path="profile" element={<Profile />} />
-              <Route path="myApplications" element={<MyApplications />} />
-              <Route path="myProjects" element={<MyProjects />} />
               <Route path="settings" element={<Settings />} />
               <Route path="projectForm" element={<ProjectForm />} />
               <Route path="signup" element={<Signup />} />
