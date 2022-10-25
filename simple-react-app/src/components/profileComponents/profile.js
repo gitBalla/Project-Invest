@@ -12,17 +12,18 @@ import {
 import { Container } from "@mui/system";
 import DashboardList from '../dashboardComponents/dashboardList';
 import { GitHub, Email, ModeEdit, StarOutline } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { UserContext } from "../../App";
 import { GetProfile } from "../utilityComponents/user";
 import useFetch from 'react-fetch-hook';
 import { GetApi } from '../utilityComponents/currentAPI';
 
 const Profile = (props) => {
+  const location = useLocation();
+  const { currentUser } = location.state;
   const { user } = useContext(UserContext);
   const projects = useFetch(GetApi('projects'));
-  //take the context user (from user namespace) and get the profile details from api
-  const userProfile = GetProfile(user);
+  const userProfile = GetProfile(currentUser);
 
   // Displays status of get call
   

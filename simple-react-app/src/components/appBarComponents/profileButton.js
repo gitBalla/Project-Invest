@@ -7,6 +7,7 @@ import { UserContext } from '../../App';
 const ProfileButton = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { isLoggedIn, setUser, setIsLoggedIn } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -57,7 +58,7 @@ const ProfileButton = () => {
         </Link>
         {isLoggedIn === true && (
           <div>
-            <Link to="/profile">
+            <Link to="/profile" state={{ currentUser: user }}>
               <MenuItem role="profileMenuItem" onClick={handleMenuClose}>My Profile</MenuItem>
             </Link>
             <Link to="/settings">
