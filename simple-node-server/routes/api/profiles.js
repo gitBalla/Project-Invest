@@ -6,19 +6,19 @@ const router = express.Router();
 // Check for valid email, check for valid github
 function checkEmail(email) {
   const re = /^((?!\.)[\w_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm;
-  return re.test(email);
+  return re.test(email) || email === ' ';
 }
 
 function checkGithub(github) {
   const re =
     /^(http(s?):\/\/)?(www\.)?github\.([a-z])+\/([A-Za-z0-9]{1,})+\/?$/i;
-  return re.test(github);
+  return re.test(github) || github === ' ';
 }
 
 function checkImgurURI(profileImage) {
   const re =
     /(?:https?:\/\/)?(?:i\.)?imgur\.com\/(?:gallery\/)?(.+(?=[sbtmlh]\..{3,4})|.+(?=\..{3,4})|.+?(?:(?=\s)|$))/;
-  return re.test(profileImage);
+  return re.test(profileImage) || profileImage === ' ';
 }
 
 // get all Profiles
@@ -50,15 +50,15 @@ router.put('/', async (req, res) => {
       email: req.body.email,
       status: req.body.status,
     };
-    if (!checkEmail(req.body.email) || req.body.email === '') {
+    if (!checkEmail(req.body.email)) {
       res.send({ error: 'Invalid Email Address' });
       return;
     }
-    if (!checkGithub(req.body.github) || req.body.github === '') {
+    if (!checkGithub(req.body.github)) {
       res.send({ error: 'Invalid Github Link' });
       return;
     }
-    if (!checkImgurURI(req.body.profileImage) || req.body.profileImage === '') {
+    if (!checkImgurURI(req.body.profileImage)) {
       res.send({ error: 'Invalid Imgur link' });
       return;
     }
