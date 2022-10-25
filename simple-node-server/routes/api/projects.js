@@ -41,13 +41,53 @@ router.post('/', async (req, res) => {
 });
 
 // Add user to applicants
-router.put('/', async (req, res) => {
+router.put('/apply', async (req, res) => {
   try {
     // Find project by id and push user to applicants array
     const project = await Project.findOneAndUpdate(
-      { id: req.body.id },
+      { name: req.body.name },
       { $push: { applicantList: req.body.username } }
     );
+    res.send(project);
+  } catch (e) {
+    res.send({ error: e });
+  }
+});
+
+router.put('/approve', async (req, res) => {
+  try {
+    // Find project by id and push user to applicants array
+    const project = {
+      name: req.body.name,
+      username: req.body.username,
+      image: req.body.image,
+      category: req.body.category,
+      description: req.body.description,
+      dateCreated: req.body.date,
+      applicantList: req.body.applicantList,
+      contributorList: req.body.contributorList,
+    };
+    await Project.findOneAndUpdate({ name: req.body.name }, project);
+    res.send(project);
+  } catch (e) {
+    res.send({ error: e });
+  }
+});
+
+router.put('/reject', async (req, res) => {
+  try {
+    // Find project by id and push user to applicants array
+    const project = {
+      name: req.body.name,
+      username: req.body.username,
+      image: req.body.image,
+      category: req.body.category,
+      description: req.body.description,
+      dateCreated: req.body.date,
+      applicantList: req.body.applicantList,
+      contributorList: req.body.contributorList,
+    };
+    await Project.findOneAndUpdate({ name: req.body.name }, project);
     res.send(project);
   } catch (e) {
     res.send({ error: e });

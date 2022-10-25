@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import './projectPage.css';
+import { Link } from 'react-router-dom';
 import {
   Button,
   Typography,
@@ -82,22 +83,6 @@ function ProjectPage() {
         return 0;
       }
   };
-  /*
-  const contributorCount = () => {
-      var contributorCount = [];
-      if (currentProject.contributorList.length > 0) {
-        currentProject.contributorList.map((contributor) => {
-          if (contributor.length > 0) {
-            contributorCount.push(contributor);
-          }
-        },[])
-        return contributorCount.length;
-      }
-      else {
-        return 0;
-      }
-  };
-  */
 
   const disableApplyButton = () => {
     if (isLoggedIn) {
@@ -114,9 +99,8 @@ function ProjectPage() {
   };
 
   const handleApprove = async (e) => {
-    //setApplicantList(applicantList);
-    console.log(currentProject.name, user);
-    await fetch(GetApi('projects/applicant'), {
+    console.log(currentProject.name, user, applicantList, contributorList);
+    await fetch(GetApi('projects/approve'), {
       method: 'PUT',
       crossDomain: true,
       headers: {
@@ -126,7 +110,12 @@ function ProjectPage() {
       },
       body: JSON.stringify({
         // TODO: Pass in the project id
-        id: currentProject.id,
+        name: currentProject.name,
+        username: currentProject.username,
+        image: currentProject.image,
+        category: currentProject.category,
+        description: currentProject.description,
+        dateCreated: currentProject.date,
         applicantList: applicantList,
         contributorList: contributorList,
       }),
@@ -142,8 +131,8 @@ function ProjectPage() {
 
   const handleReject = async (e) => {
     //setApplicantList(applicantList);
-    console.log(currentProject.name, user);
-    await fetch(GetApi('projects/applicant'), {
+    console.log(currentProject.name, user, applicantList);
+    await fetch(GetApi('projects/reject'), {
       method: 'PUT',
       crossDomain: true,
       headers: {
@@ -153,8 +142,14 @@ function ProjectPage() {
       },
       body: JSON.stringify({
         // TODO: Pass in the project id
-        id: currentProject.id,
+        name: currentProject.name,
+        username: currentProject.username,
+        image: currentProject.image,
+        category: currentProject.category,
+        description: currentProject.description,
+        dateCreated: currentProject.date,
         applicantList: applicantList,
+        contributorList: contributorList,
       }),
     })
       .then((res) => res.json())
@@ -167,17 +162,6 @@ function ProjectPage() {
   };
 
   const approveApplicant = (index, applicant) => {
-    //remove from applicant list
-    /*
-    if (applicantCount() === 1) {
-      const newAppList = [];
-      setApplicantList(newAppList);
-    }
-    else {
-      const newAppList = applicantList.splice(index,1);
-      setApplicantList(newAppList);
-    }
-    */
     const newAppList = applicantList.splice(index,1);
     setApplicantList(newAppList);
 
@@ -189,53 +173,16 @@ function ProjectPage() {
   }
   
   const rejectApplicant = (index) => {
-    if (index == 0 && applicantCount() == 1) {
-      applicantList.length = 0;
-      setApplicantList(applicantList);
-    }
-    else {
-      const newAppList = applicantList.splice(index,1);
-      setApplicantList(newAppList);
-    }
+    //removes from applicant list
+    const newAppList = applicantList.splice(index,1);
+    setApplicantList(newAppList);
 
     handleReject();
   };
-  /*
-  const approveApplicant = (index) => {
-    contributorList.push(applicantList[index]);
-    setContributorList(contributorList);
-    
-    //const newAppList = applicantList.filter((_, i) => i !== index);
-    applicantList.splice(index,1);
-    setApplicantList(applicantList);
-    //handleApprove();
-  }
-
-  const rejectApplicant = (index) => {
-    const newAppList = applicantList.filter((_, i) => i !== index);
-    //const index = applicantList.indexOf(rejectedUser);
-    //applicantList.splice(index,1);
-    setApplicantList(newAppList);
-  }
-  
-  const handleApprove = async (e) => {
-    //move user from applicantList to contributorList
-  }
-  */
-
-  /*
-  function checkForUser(arr, usr) {
-    for (int i = 0, i < arr.length, i++) {
-
-    }
-  }
-  */
-
-  
 
   const handleApply = async (e) => {
     handleClose();
-    if (applicantCount() === 0) {
+    if (applicantList.length === 0) {
       applicantList[0] = user;
     }
     else {
@@ -243,7 +190,7 @@ function ProjectPage() {
     }
     setApplicantList(applicantList);
     console.log(currentProject.name, user);
-    await fetch(GetApi('projects'), {
+    await fetch(GetApi('projects/apply'), {
       method: 'PUT',
       crossDomain: true,
       headers: {
@@ -253,9 +200,8 @@ function ProjectPage() {
       },
       body: JSON.stringify({
         // TODO: Pass in the project id
-        id: currentProject.id,
+        name: currentProject.name,
         username: userProfile.data.username,
-        //applicantList: applicantList,
       }),
     })
       .then((res) => res.json())
@@ -291,7 +237,7 @@ function ProjectPage() {
           </Box>
           <Box gridColumn="span 8">
             <Typography style={{ color: 'black' }} variant="body1">
-              {currentProject.description}{applicantList}
+              {currentProject.description}
             </Typography>
           </Box>
           <Box gridColumn="span 4">
@@ -306,20 +252,20 @@ function ProjectPage() {
                 </AccordionSummary>
                 <AccordionDetails>
                   {currentProject.contributorList.map((contributor) => {
-                    return <ListItem>{contributor}</ListItem>;
+                    return <ListItem><Link to="/profile" state={{currentUser: contributor}}>{contributor}</Link></ListItem>;
                   })}
                 </AccordionDetails>
               </Accordion>
               <Accordion sx={{ width: '100%' }}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography style={{ color: 'black' }} variant="subtitle1">
-                    <EmojiPeopleIcon /> {applicantCount()}{' '}
+                    <EmojiPeopleIcon /> {applicantList.length}{' '}
                     Applicant 
-                    {applicantCount() === 1 ? '' : 's'}
+                    {applicantList.length === 1 ? '' : 's'}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  {applicantCount() === 0 ? "No applicants" : currentProject.applicantList.map((applicant, index) => {
+                  {applicantList.length === 0 ? "No applicants" : currentProject.applicantList.map((applicant, index) => {
                     return <ListItem 
                               secondaryAction={user === currentProject.username ? 
                                   <div>
@@ -329,7 +275,7 @@ function ProjectPage() {
                                     <IconButton edge="end">
                                     <CancelIcon color="error" onClick={() => {rejectApplicant(index)}}/></IconButton>
                                   </div> : ""}>
-                            {applicant},{index}</ListItem>;
+                                  <Link to="/profile" state={{currentUser: applicant}}>{applicant}</Link></ListItem>;
                   })}
                 </AccordionDetails>
               </Accordion>
