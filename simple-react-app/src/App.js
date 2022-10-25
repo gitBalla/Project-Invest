@@ -14,7 +14,6 @@ import EditProfileForm from './components/profileComponents/editProfileForm.js';
 import LandingPage from './components/landingPageComponent/landingPage';
 import ErrorPage from './components/utilityComponents/errorPage';
 
-
 export const UserContext = React.createContext();
 
 function App() {

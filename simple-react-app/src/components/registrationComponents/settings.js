@@ -80,20 +80,24 @@ const Settings = () => {
         Accept: 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
+      body: JSON.stringify({
+        token: document.cookie,
+      }),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
           alert(data.error);
+        } else {
+          // Remove user contexts
+          setUser('');
+          setIsLoggedIn(false);
+          // Set cookie to expiry
+          document.cookie =
+            'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+          navigate('/login');
         }
         console.log(data);
-        // Remove user contexts
-        setUser('');
-        setIsLoggedIn(false);
-        // Set cookie to expiry
-        document.cookie =
-          'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        navigate('/login');
       });
   };
 
