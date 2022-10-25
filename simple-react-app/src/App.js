@@ -11,6 +11,9 @@ import Signup from './components/registrationComponents/signup.js';
 import Login from './components/registrationComponents/login.js';
 import ProjectPage from './components/projectPageComponents/projectPage.js';
 import EditProfileForm from './components/profileComponents/editProfileForm.js';
+import LandingPage from './components/landingPageComponent/landingPage';
+import ErrorPage from './components/utilityComponents/errorPage';
+
 
 export const UserContext = React.createContext();
 
@@ -38,7 +41,8 @@ function App() {
         <HashRouter>
           <Routes>
             <Route path="/" element={<AppBar />}>
-              <Route index element={<Dashboard />} />
+              <Route index element={<LandingPage />} />
+              <Route path="dashboard" element={<Dashboard />} />
               <Route path="profile" element={<Profile />} />
               <Route path="settings" element={<Settings />} />
               <Route path="projectForm" element={<ProjectForm />} />
@@ -46,7 +50,7 @@ function App() {
               <Route path="login" element={<Login />} />
               <Route path="editProfileForm" element={<EditProfileForm />} />
               <Route path="projectPage" element={<ProjectPage />} />
-              <Route path="*" element={<h1>404</h1>} />
+              <Route path="*" element={<ErrorPage />} />
             </Route>
           </Routes>
         </HashRouter>

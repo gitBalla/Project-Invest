@@ -8,8 +8,8 @@ Developed in the Enterprise Systems Development capstone course Advanced Softwar
 ## Features
 
 - Create and view project listings seeking investments & developers
-- Feature 2
-- Feature 3
+- Create user account and profile to join projects, network and save bookmarks
+- Apply to projects and review applicants to grow your team and investments
 
 Our goal is to make it more convenient for developers to seek investment for their projects, and even for our users to seek more developers for their teams. To do this we want to create a project-sharing tool for developers to reach out to investors and other developers, and for developers and investors alike to find projects, join them, and follow them.
 

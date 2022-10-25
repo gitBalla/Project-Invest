@@ -52,7 +52,7 @@ const ProfileButton = () => {
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
       >
-        <Link to="/">
+        <Link to="/dashboard">
           <MenuItem role="dashboardMenuItem" onClick={handleMenuClose}>Dashboard</MenuItem>
         </Link>
         {isLoggedIn === true && (
