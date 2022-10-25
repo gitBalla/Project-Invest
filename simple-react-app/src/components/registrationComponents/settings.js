@@ -80,6 +80,9 @@ const Settings = () => {
         Accept: 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
+      body: JSON.stringify({
+        token: document.cookie,
+      }),
     })
       .then((res) => res.json())
       .then((data) => {
