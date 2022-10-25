@@ -61,8 +61,10 @@ const Profile = (props) => {
     );
   }
   
-
+  const validGitHub = userProfile.data.github === ' ';
+  const validEmail = userProfile.data.email === ' ';
   const sameUser = userProfile.data.username === user;
+  
 
   if(userProfile.data.status === 'Private' && !sameUser){
     return (
@@ -89,6 +91,7 @@ const Profile = (props) => {
             </IconButton>
           )}
           <IconButton
+            disabled={validGitHub}
             variant="link"
             href={userProfile.data.github}
             target="_blank"
@@ -99,7 +102,7 @@ const Profile = (props) => {
             <Avatar alt={userProfile.data.displayName.toUpperCase()} src={userProfile.data.profileImage} sx={{ width: 112, height: 112 }} />
             <Typography>{userProfile.data.displayName}</Typography>
           </Stack>
-          <IconButton href={emailAddress}>
+          <IconButton disabled={validEmail} href={emailAddress}>
             <Icon component={Email} fontSize="large" />
           </IconButton>
           {sameUser === true &&(
