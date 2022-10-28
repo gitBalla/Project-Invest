@@ -1,7 +1,11 @@
 # Project-Invest: https://devfund.azurewebsites.net/
 ## _The developer crowdsourcing platform_
 
-Team members: John Balla, Rebecca Galletta, Toby Rutherford, Vincent Tran
+Team members:
+- John Balla: Dashboard, AppBar, New Projects, Front-end Lead
+- Rebecca Galletta: Projects, Applications, Architecture Lead
+- Toby Rutherford: Profile Management, Backlog Lead
+- Vincent Tran: Registration Management, Back-end Lead
 
 Developed in the Enterprise Systems Development capstone course Advanced Software Development, at University of Technology Sydney
 
